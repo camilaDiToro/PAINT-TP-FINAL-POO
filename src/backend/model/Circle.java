@@ -1,26 +1,14 @@
 package backend.model;
 
-public class Circle extends Figure {
+public class Circle extends Ellipse {
 
-    protected final Point centerPoint;
-    protected final double radius;
-
-    public Circle(Point centerPoint, double radius) {
-        this.centerPoint = centerPoint;
-        this.radius = radius;
+    public Circle(Point center, Point endPoint) {
+        super(new Point(center.getX() - center.distance(endPoint),center.getY() - center.distance(endPoint)),
+                new Point(center.getX() + center.distance(endPoint),center.getY() + center.distance(endPoint)));
     }
-
     @Override
     public String toString() {
-        return String.format("Círculo [Centro: %s, Radio: %.2f]", centerPoint, radius);
-    }
-
-    public Point getCenterPoint() {
-        return centerPoint;
-    }
-
-    public double getRadius() {
-        return radius;
+        return String.format("Círculo [Centro: %s, Radio: %.2f]", getCenterPoint(), getHeight()/2);
     }
 
 }
