@@ -1,10 +1,10 @@
-package frontend;
+package main.java.frontend;
 
-import backend.CanvasState;
-import backend.model.Circle;
-import backend.model.Figure;
-import backend.model.Point;
-import backend.model.Rectangle;
+import main.java.backend.CanvasState;
+import main.java.backend.model.Circle;
+import main.java.backend.model.Figure;
+import main.java.backend.model.Point;
+import main.java.backend.model.Rectangle;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
@@ -48,7 +48,7 @@ public class PaintPane extends BorderPane {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
 
-		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton};
+		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, ellipseButton, squareButton};
 		ToggleGroup tools = new ToggleGroup();
 
 		for (ToggleButton tool : toolsArr) {
@@ -86,12 +86,7 @@ public class PaintPane extends BorderPane {
 			// ESTO DEFINITIVAMENTE NO TIENE SENTIDO
 			Figure newFigure = null;
 
-			//tools.selected().generateFigure(startPoit, endPooint);
-
-			// Muy PI
-
-			// habria que hacer algun metodo que se llame algo asi: checkIfButtonIsPressed y que
-			// haga toda la logica por atras
+			// Muy PI.
 
 			if (rectangleButton.isSelected()) {
 				newFigure = new Rectangle(startPoint, endPoint);
@@ -158,7 +153,12 @@ public class PaintPane extends BorderPane {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
 				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
-				selectedFigure.move(diffX, diffY);
+				try {
+					selectedFigure.move(diffX, diffY);
+				}catch(NullPointerException e){
+					System.out.println("No seleccionaste una figura");  /* Esta linea de
+					try catch la dejo por ahora porque cuando seleccionas afuera de una figura tira null pointer excep*/
+				}
 				redrawCanvas();
 			}
 		});

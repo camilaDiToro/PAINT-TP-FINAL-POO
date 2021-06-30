@@ -1,4 +1,4 @@
-package backend.model;
+package main.java.backend.model;
 
 public abstract class Figure implements Movable {
 
@@ -10,6 +10,7 @@ public abstract class Figure implements Movable {
     }
 
     public Point getTopLeft() { return this.topLeft; }
+
     public Point getBottomRight() { return this.bottomRight; }
 
     // Metodo que retorna un vector de Point[] que son los que conforman la figura.
@@ -29,5 +30,6 @@ public abstract class Figure implements Movable {
     public abstract boolean pointBelongs(Point point);
 
     public Double getWidth(){ return topLeft.distanceX(bottomRight); }
+
     public Double getHeight(){ return topLeft.distanceY(bottomRight); }
 }

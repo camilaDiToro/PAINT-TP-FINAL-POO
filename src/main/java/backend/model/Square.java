@@ -1,4 +1,4 @@
-package backend.model;
+package main.java.backend.model;
 
 public class Square extends Rectangle{
     public Square(Point topLeft, Point bottomRight ){

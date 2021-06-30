@@ -1,4 +1,4 @@
-package backend.model;
+package main.java.backend.model;
 
 public class Ellipse extends Figure{
 
@@ -15,9 +15,11 @@ public class Ellipse extends Figure{
     public String toString() {
         return String.format("Elipse [Centro: %s, Diámentro 1: %.2f, Diámentro 2: %.2f]", centerPoint, getHeight(), getWidth());
     }
+
     public Point getCenterPoint() {
         return centerPoint;
     }
+
     @Override
     public Point[] getPoints() {
         return new Point[]{getTopLeft(),getBottomRight(),centerPoint};
