@@ -1,23 +1,26 @@
-package main.java.frontend;
+package main.java.ideas;
 
-import main.java.backend.CanvasState;
-import main.java.backend.model.Circle;
-import main.java.backend.model.Figure;
-import main.java.backend.model.Point;
-import main.java.backend.model.Rectangle;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import main.java.backend.CanvasState;
+import main.java.backend.model.Circle;
+import main.java.backend.model.Figure;
+import main.java.backend.model.Point;
+import main.java.backend.model.Rectangle;
+import main.java.ideas.Buttons.*;
 import main.java.frontend.StatusPane;
+import main.java.ideas.ButtonsGroup.MyCustomGroup;
 
 
-public class PaintPane extends BorderPane {
+public class PaintPaneV2 extends BorderPane {
 
 	// BackEnd
 	private final CanvasState canvasState;
@@ -28,13 +31,6 @@ public class PaintPane extends BorderPane {
 	private final Color lineColor = Color.BLACK;
 	private final Color fillColor = Color.YELLOW;
 
-	// Botones Barra Izquierda
-	private final ToggleButton selectionButton = new ToggleButton("Seleccionar");
-	private final ToggleButton rectangleButton = new ToggleButton("Rectángulo");
-	private final ToggleButton circleButton = new ToggleButton("Círculo");
-	private final ToggleButton ellipseButton = new ToggleButton("Ellipse");
-	private final ToggleButton squareButton = new ToggleButton("Cuadrado");
-
 	// Dibujar una figura
 	private Point startPoint;
 
@@ -44,18 +40,12 @@ public class PaintPane extends BorderPane {
 	// StatusBar
 	private StatusPane statusPane;
 
-	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
+	public PaintPaneV2(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
 
-		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, ellipseButton, squareButton};
-		ToggleGroup tools = new ToggleGroup();
-
-		for (ToggleButton tool : toolsArr) {
-			tool.setMinWidth(90);
-			tool.setToggleGroup(tools);
-			tool.setCursor(Cursor.HAND);
-		}
+		MyCustomGroup tools = new MyCustomGroup();
+		ToggleButton[] toolsArr = createAndGroupButtons(tools);
 
 		VBox buttonsBox = new VBox(10);
 
@@ -83,20 +73,14 @@ public class PaintPane extends BorderPane {
 			if (endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
 				return;
 			}
-			// ESTO DEFINITIVAMENTE NO TIENE SENTIDO
-			Figure newFigure = null;
 
-			// Muy PI.
+			ToggleButton button =  tools.getSelectedButton();
 
-			if (rectangleButton.isSelected()) {
-				newFigure = new Rectangle(startPoint, endPoint);
-			} else if (circleButton.isSelected()) {
-				//
-				double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Circle(startPoint, endPoint);
-			} else {
+			if(button == null || button.getText().equals("Seleccionar"))
 				return;
-			}
+
+			MyToggleButton myButton = (MyToggleButton) button;
+			Figure newFigure = myButton.generateFigure(startPoint, endPoint);
 
 			canvasState.addFigure(newFigure);
 			startPoint = null;
@@ -124,7 +108,7 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseClicked(event -> {
-			if (selectionButton.isSelected()) {
+			if (tools.getSelectedButton().getText().equals("Seleccionar")) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
@@ -149,7 +133,7 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseDragged(event -> {
-			if (selectionButton.isSelected()) {
+			if (tools.getSelectedButton().getText().equals("Seleccionar")) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
 				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
@@ -163,6 +147,26 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
+	}
+
+	private ToggleButton[] createAndGroupButtons(MyCustomGroup tools) {
+
+		// El primer boton es de un tipo de dato distinto al del resto, no me gusta
+		ToggleButton selectionButton = new ToggleButton("Seleccionar");
+		MyToggleButton rectangleButton = new MyRectangleButton("Rectángulo");
+		MyToggleButton circleButton = new MyCircleButton("Círculo");
+		MyToggleButton ellipseButton = new MyEllipseButton("Ellipse");
+		MyToggleButton squareButton = new MySquareButton("Cuadrado");
+
+		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, ellipseButton, squareButton};
+
+		for (ToggleButton tool : toolsArr) {
+			tool.setMinWidth(90);
+			tool.setToggleGroup(tools);
+			tool.setCursor(Cursor.HAND);
+		}
+
+		return toolsArr;
 	}
 
 	// Usa el width y el height del Rectangulo y usa los metodos fillRect (te llena el rectangulo) , storkeRect(hace el borde del rectangulo).
