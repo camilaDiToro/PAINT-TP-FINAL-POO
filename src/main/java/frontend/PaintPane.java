@@ -5,7 +5,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -13,10 +12,13 @@ import main.java.frontend.Buttons.ActionButton;
 import main.java.frontend.Buttons.CustomButton;
 import main.java.frontend.Buttons.RenderButton;
 import main.java.frontend.Buttons.CustomButtonGroup;
-import main.java.frontend.renderers.LineRender;
-import main.java.frontend.renderers.RectangleRender;
-import main.java.frontend.renderers.Render;
-import main.java.frontend.renderers.RoundedFigureRender;
+import main.java.frontend.Renderers.LineRender;
+import main.java.frontend.Renderers.RectangleRender;
+import main.java.frontend.Renderers.Render;
+import main.java.frontend.Renderers.RoundedFigureRender;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PaintPane extends BorderPane {
@@ -33,8 +35,13 @@ public class PaintPane extends BorderPane {
 	// Punto de comienzo del dibujo
 	private Point startPoint;
 
+	//Rectangulo seleccionador
+	private Rectangle imaginaryRect;
+
 	// Seleccionar un dibujo
 	private Render<MovableDrawing> selectedFigure;
+
+	private List<Render<MovableDrawing>> selectedList = new ArrayList<>();
 
 	// Grupo de botones
 	private final CustomButtonGroup buttonsGroup = new CustomButtonGroup();
@@ -45,8 +52,8 @@ public class PaintPane extends BorderPane {
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
-		canvas = makeCanvas();
 		VBox buttonsBox = makeToolPanel();
+		canvas = makeCanvas();
 		gc = canvas.getGraphicsContext2D();
 		setLeft(buttonsBox);
 		setRight(canvas);
@@ -67,8 +74,8 @@ public class PaintPane extends BorderPane {
 		for (Render<MovableDrawing> renderFigure : canvasState.renderFigures()) {
 			gc.setFill(fillColor);
 			gc.setStroke(lineColor);
-			if (renderFigure.getFigure() == selectedFigure) // OJO con el ==
-				gc.setStroke(Color.RED);
+			if (selectedList.contains(renderFigure))
+				gc.setStroke(Color.RED); // No se pinta de rojo el seleccionado
 			renderFigure.render(gc);
 		}
 	}
@@ -115,8 +122,17 @@ public class PaintPane extends BorderPane {
 
 			CustomButton selected = buttonsGroup.getSelectedButton();
 
-			if(!selected.isRendered())
+			if(!selected.isRendered()) {
+				// Estoy en seleccion multiple
+				if (!selectedList.isEmpty())
+					return;
+				imaginaryRect = new Rectangle(startPoint, endPoint);
+				for(Render<MovableDrawing> render: canvasState.renderFigures()){
+					if(render.getFigure().isContained(imaginaryRect))
+						selectedList.add(render);
+				}
 				return;
+			}
 
 			RenderButton<MovableDrawing> button = (RenderButton<MovableDrawing>) selected;
 
@@ -144,36 +160,61 @@ public class PaintPane extends BorderPane {
 		});
 
 		//Esta mal el primer if, lo dejamos para que corra.
+		// Pressed and release
 		canvas.setOnMouseClicked(event -> {
 			if (buttonsGroup.getSelectedButton().getText().equals("Seleccionar")) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
 
-				for( Render<MovableDrawing> renderFigure: canvasState.renderFigures()){
-					if(renderFigure.getFigure().pointBelongs(eventPoint)){
-						selectedFigure = renderFigure;
-						found = true;
-					}
+				/*
+					Hago click,
+						si hay elementos en el cuadrado imaginario:
+							si presiono fuera del cuadrado, vacío la lista.
+							si presiono dentro del cuadrado, no hago nada.
+
+						si no hay elementos en la lista del cuadrado imaginario:
+						    si presiono en un lugar donde hay una figura, la agrego a la lista.
+						    sino, no hago nada
+
+				 */
+				// Si tocaste afuera del rectangulo imaginario, vacio la lista.
+				if(!imaginaryRect.pointBelongs(eventPoint)){
+					selectedList.clear();
+					imaginaryRect = null;
 				}
-				updateInfoBar(found,statusPane,"Se selecciono: " + (selectedFigure==null? "":selectedFigure.getFigure().toString()), "Ninguna figura encontrada");
-				if(!found)
-					selectedFigure = null;
+
+				if(selectedList.isEmpty() || selectedList.size() == 1) {
+					for (Render<MovableDrawing> renderFigure : canvasState.renderFigures()) {
+						if (renderFigure.getFigure().pointBelongs(eventPoint)) {
+							selectedList.add(renderFigure);
+							found = true;
+						}
+					}
+					updateInfoBar(found, statusPane, "Se selecciono: " + (selectedList.isEmpty() ? "" : selectedList.size() == 1), "Ninguna figura encontrada");
+					if (!found)
+						selectedList.clear();
+				}
 				redrawCanvas();
 			}
 		});
-
 		// Esta mal el primer if, lo dejamos para que corra.
 		canvas.setOnMouseDragged(event -> {
 			if (buttonsGroup.getSelectedButton().getText().equals("Seleccionar")) {
 				Point eventPoint = new Point(event.getX(), event.getY());
-				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
-				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
-				if(selectedFigure != null)
+				if(selectedFigure != null) {
+					double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
+					double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
 					selectedFigure.getFigure().move(diffX, diffY);
+				}else {
+					Rectangle imaginaryRect = new Rectangle(startPoint, eventPoint);
+					for(Render<MovableDrawing> render: canvasState.renderFigures()){
+						if(render.getFigure().isContained(imaginaryRect))
+							selectedList.add(render);
+					}
+				}
 				redrawCanvas();
 			}
 		});
-
 		return canvas;
 	}
 }

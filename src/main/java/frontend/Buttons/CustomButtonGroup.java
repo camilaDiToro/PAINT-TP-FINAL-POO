@@ -1,5 +1,6 @@
 package main.java.frontend.Buttons;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import main.java.backend.model.MovableDrawing;
@@ -12,7 +13,5 @@ public class CustomButtonGroup extends ToggleGroup {
         Toggle toReturn = getSelectedToggle();
         return (CustomButton) toReturn;
     }
-
-
 
 }

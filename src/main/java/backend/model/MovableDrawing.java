@@ -2,7 +2,6 @@ package main.java.backend.model;
 
 public interface MovableDrawing extends Movable{
 
-
     // Metodo que retorna un vector de Point[] que son los que conforman la figura.
     Point[] getPoints();
 
@@ -17,6 +16,8 @@ public interface MovableDrawing extends Movable{
     }
 
     // Metodo que retorna true si un Point pertenece a la figura, caso contrario retorna false.
-    public abstract boolean pointBelongs(Point point);
+    boolean pointBelongs(Point point);
+
+    boolean isContained(Rectangle rectangle);
 
 }

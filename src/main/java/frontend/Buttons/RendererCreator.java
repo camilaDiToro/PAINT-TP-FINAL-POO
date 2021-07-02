@@ -3,7 +3,7 @@ package main.java.frontend.Buttons;
 import javafx.scene.paint.Color;
 import main.java.backend.model.MovableDrawing;
 import main.java.backend.model.Point;
-import main.java.frontend.renderers.Render;
+import main.java.frontend.Renderers.Render;
 
 @FunctionalInterface
 public interface RendererCreator<P extends MovableDrawing> {

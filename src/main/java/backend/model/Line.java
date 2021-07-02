@@ -24,6 +24,11 @@ public class Line implements MovableDrawing{
     }
 
     @Override
+    public boolean isContained(Rectangle rectangle){
+        return rectangle.pointBelongs(firstPoint) && rectangle.pointBelongs(secondPoint);
+    }
+
+    @Override
     public String toString(){
         return String.format("Linea [Extremo 1: %s, Extremo 2: %s]",getFirstPoint(), getSecondPoint());
     }

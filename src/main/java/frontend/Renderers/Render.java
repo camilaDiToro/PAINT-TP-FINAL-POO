@@ -1,4 +1,4 @@
-package main.java.frontend.renderers;
+package main.java.frontend.Renderers;
 import javafx.scene.canvas.GraphicsContext;
 import main.java.backend.model.MovableDrawing;
 

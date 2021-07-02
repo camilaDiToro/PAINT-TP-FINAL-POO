@@ -1,34 +1,24 @@
 package main.java.frontend;
 
 import main.java.backend.model.MovableDrawing;
-import main.java.frontend.renderers.Render;
+import main.java.frontend.Renderers.Render;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import java.util.*;
 
 public class CanvasState {
 
-
-    private final Stack<Render<MovableDrawing>> renders = new Stack<>();
+    private final List<Render<MovableDrawing>> renders = new ArrayList<>();
 
     public void addRenderFigure(Render<MovableDrawing> renderFigure) {
-        renders.push(renderFigure);
+        renders.add(renderFigure);
     }
 
-    public Iterable<Render<MovableDrawing>> renderFigures() {
+    public void deleteRenderFigures(Collection<Render<MovableDrawing>> toRemove){
+        renders.removeAll(toRemove);
+    }
+
+    public Iterable<Render<MovableDrawing>> renderFigures(){
         return new ArrayList<>(renders);
     }
-    // en un futuro tiene que tener alguna forma de orden, para determinar profundidad.
-
-    /*
-        private final List<Render<MovableDrawing>> list = new ArrayList<>();
-
-    public void addRenderFigure(Render<MovableDrawing> renderFigure) {
-        list.add(renderFigure);
-    }
-    public Iterable<Render<MovableDrawing>> renderFigures() {
-        return new ArrayList<>(list);
-    }
-*/
 
 }

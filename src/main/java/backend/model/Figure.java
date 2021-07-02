@@ -9,6 +9,11 @@ public abstract class Figure implements MovableDrawing {
         this.bottomRight=bottomRight;
     }
 
+    @Override
+    public boolean isContained(Rectangle rectangle){
+        return rectangle.pointBelongs(topLeft) && rectangle.pointBelongs(bottomRight);
+    }
+
     public Point getTopLeft() { return this.topLeft; }
 
     public Point getBottomRight() { return this.bottomRight; }
