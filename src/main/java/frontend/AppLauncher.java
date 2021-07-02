@@ -1,6 +1,5 @@
 package main.java.frontend;
 
-import main.java.backend.CanvasState;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

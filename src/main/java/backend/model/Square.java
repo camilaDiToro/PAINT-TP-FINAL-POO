@@ -3,7 +3,7 @@ package main.java.backend.model;
 public class Square extends Rectangle {
 
     public Square(Point topLeft, Point bottomRight ){
-        super(topLeft,bottomRight);
+        super(topLeft,new Point(bottomRight.getX(), topLeft.getY() + bottomRight.distanceX(topLeft)));
     }
 
     @Override

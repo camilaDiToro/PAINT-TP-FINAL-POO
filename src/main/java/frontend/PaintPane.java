@@ -1,20 +1,22 @@
 package main.java.frontend;
 
-import main.java.backend.CanvasState;
-import main.java.backend.model.Circle;
-import main.java.backend.model.Figure;
-import main.java.backend.model.Point;
-import main.java.backend.model.Rectangle;
+import main.java.backend.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import main.java.frontend.StatusPane;
+import main.java.frontend.Buttons.ActionButton;
+import main.java.frontend.Buttons.CustomButton;
+import main.java.frontend.Buttons.RenderButton;
+import main.java.frontend.Buttons.CustomButtonGroup;
+import main.java.frontend.renderers.LineRender;
+import main.java.frontend.renderers.RectangleRender;
+import main.java.frontend.renderers.Render;
+import main.java.frontend.renderers.RoundedFigureRender;
 
 
 public class PaintPane extends BorderPane {
@@ -22,175 +24,156 @@ public class PaintPane extends BorderPane {
 	// BackEnd
 	private final CanvasState canvasState;
 
-	// Canvas(rectangulo donde dibujo) y relacionados
-	private final Canvas canvas = new Canvas(800, 600);
-	private final GraphicsContext gc = canvas.getGraphicsContext2D();
+	// Canvas y relacionados
+	private final Canvas canvas;
+	private final GraphicsContext gc;
 	private final Color lineColor = Color.BLACK;
 	private final Color fillColor = Color.YELLOW;
 
-	// Botones Barra Izquierda
-	private final ToggleButton selectionButton = new ToggleButton("Seleccionar");
-	private final ToggleButton rectangleButton = new ToggleButton("Rectángulo");
-	private final ToggleButton circleButton = new ToggleButton("Círculo");
-	private final ToggleButton ellipseButton = new ToggleButton("Ellipse");
-	private final ToggleButton squareButton = new ToggleButton("Cuadrado");
-
-	// Dibujar una figura
+	// Punto de comienzo del dibujo
 	private Point startPoint;
 
-	// Seleccionar una figura
-	private Figure selectedFigure;
+	// Seleccionar un dibujo
+	private Render<MovableDrawing> selectedFigure;
+
+	// Grupo de botones
+	private final CustomButtonGroup buttonsGroup = new CustomButtonGroup();
 
 	// StatusBar
-	private StatusPane statusPane;
+	private final StatusPane statusPane;
 
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
+		canvas = makeCanvas();
+		VBox buttonsBox = makeToolPanel();
+		gc = canvas.getGraphicsContext2D();
+		setLeft(buttonsBox);
+		setRight(canvas);
+		gc.setLineWidth(1);
+	}
 
-		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, ellipseButton, squareButton};
-		ToggleGroup tools = new ToggleGroup();
+	private void updateInfoBar(boolean found, StatusPane statuspane, String foundString, String notFoundString){
+		if (found) {
+			statusPane.updateStatus(foundString);
+		} else {
+			statusPane.updateStatus(notFoundString);
+		}
+	}
 
-		for (ToggleButton tool : toolsArr) {
-			tool.setMinWidth(90);
-			tool.setToggleGroup(tools);
-			tool.setCursor(Cursor.HAND);
+	private void redrawCanvas() {
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+		for (Render<MovableDrawing> renderFigure : canvasState.renderFigures()) {
+			gc.setFill(fillColor);
+			gc.setStroke(lineColor);
+			if (renderFigure.getFigure() == selectedFigure) // OJO con el ==
+				gc.setStroke(Color.RED);
+			renderFigure.render(gc);
+		}
+	}
+
+	private VBox makeToolPanel() {
+
+		RenderButton<Square> squareButton = new RenderButton<>((TopLeft, BottomRight, colorBg, strokeColor, strokeWidth) -> new RectangleRender<>(new Square(TopLeft, BottomRight)),"Cuadrado");
+		RenderButton<Rectangle> rectangleButton = new RenderButton<>((TopLeft, BottomRight, colorBg, strokeColor, strokeWidth) -> new RectangleRender<>(new Rectangle(TopLeft, BottomRight)),"Rectangulo");
+		RenderButton<Circle> circleButton = new RenderButton<>((TopLeft, BottomRight, colorBg, strokeColor, strokeWidth) -> new RoundedFigureRender<>(new Circle(TopLeft, BottomRight)),"Circulo");
+		RenderButton<Ellipse> ellipseButton = new RenderButton<>((TopLeft, BottomRight, colorBg, strokeColor, strokeWidth) -> new RoundedFigureRender<>(new Ellipse(TopLeft, BottomRight)),"Elipse");
+		RenderButton<Line> lineButton = new RenderButton<>((TopLeft, BottomRight, colorBg, strokeColor, strokeWidth) -> new LineRender(new Line(TopLeft, BottomRight)),"Linea");
+		ActionButton selectionButton = new ActionButton("Seleccionar");
+		CustomButton[] buttonArr = {selectionButton, rectangleButton, circleButton, ellipseButton, squareButton, lineButton};
+
+		for (CustomButton button : buttonArr) {
+			button.setMinWidth(90);
+			button.setToggleGroup(buttonsGroup);
+			button.setCursor(Cursor.HAND);
 		}
 
 		VBox buttonsBox = new VBox(10);
 
-		buttonsBox.getChildren().addAll(toolsArr);
+		buttonsBox.getChildren().addAll(buttonArr);
 		buttonsBox.setPadding(new Insets(5));
 		buttonsBox.setStyle("-fx-background-color: #999");
 		buttonsBox.setPrefWidth(100);
 
-		gc.setLineWidth(1);
+		return buttonsBox;
+	}
+
+	private Canvas makeCanvas(){
+
+		Canvas canvas = new Canvas(800, 600);
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
 		});
 
-		setLeft(buttonsBox);  // Cuando crea el VBOX, lo manda a izquierda
-		setRight(canvas); // El canvas a la derec
-
 		canvas.setOnMouseReleased(event -> {
 			Point endPoint = new Point(event.getX(), event.getY());
-			if (startPoint == null) {
+
+			if (startPoint == null)
 				return;
-			}
 
-			// TIENE SENTIDO ??
-			if (endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
+			CustomButton selected = buttonsGroup.getSelectedButton();
+
+			if(!selected.isRendered())
 				return;
-			}
-			// ESTO DEFINITIVAMENTE NO TIENE SENTIDO
-			Figure newFigure = null;
 
-			// Muy PI.
+			RenderButton<MovableDrawing> button = (RenderButton<MovableDrawing>) selected;
 
-			if (rectangleButton.isSelected()) {
-				newFigure = new Rectangle(startPoint, endPoint);
-			} else if (circleButton.isSelected()) {
-				//
-				double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Circle(startPoint, endPoint);
-			} else {
+			// Falta preguntar que sea la linea.
+			if (endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY())
 				return;
-			}
 
-			canvasState.addFigure(newFigure);
+			canvasState.addRenderFigure(button.createRenderer(startPoint, endPoint, fillColor ,lineColor ,1));
 			startPoint = null;
 			redrawCanvas();
 		});
-
-		// SetOnMouseMoved == SetOnMouseClicked
 
 		canvas.setOnMouseMoved(event -> {
 			Point eventPoint = new Point(event.getX(), event.getY());
 			boolean found = false;
 			StringBuilder label = new StringBuilder();
 
-			for (Figure figure : canvasState.figures()) {
-				if (figure.pointBelongs(eventPoint)) {
+			for (Render<MovableDrawing> renderFigure : canvasState.renderFigures()) {
+				if (renderFigure.getFigure().pointBelongs(eventPoint)) {
 					found = true;
-					label.append(figure.toString());
+					label.append(renderFigure.getFigure().toString());
 				}
 			}
-			if (found) {
-				statusPane.updateStatus(label.toString());
-			} else {
-				statusPane.updateStatus(eventPoint.toString());
-			}
+			updateInfoBar(found, statusPane, label.toString(), eventPoint.toString());
 		});
 
+		//Esta mal el primer if, lo dejamos para que corra.
 		canvas.setOnMouseClicked(event -> {
-			if (selectionButton.isSelected()) {
+			if (buttonsGroup.getSelectedButton().getText().equals("Seleccionar")) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
-				StringBuilder label = new StringBuilder("Se seleccionó: ");
 
-				// Mejorable este ciclo
-
-				for (Figure figure : canvasState.figures()) {
-					if (figure.pointBelongs(eventPoint)) {
+				for( Render<MovableDrawing> renderFigure: canvasState.renderFigures()){
+					if(renderFigure.getFigure().pointBelongs(eventPoint)){
+						selectedFigure = renderFigure;
 						found = true;
-						selectedFigure = figure;
-						label.append(figure.toString());
 					}
 				}
-				if (found) {
-					statusPane.updateStatus(label.toString());
-				} else {
+				updateInfoBar(found,statusPane,"Se selecciono: " + (selectedFigure==null? "":selectedFigure.getFigure().toString()), "Ninguna figura encontrada");
+				if(!found)
 					selectedFigure = null;
-					statusPane.updateStatus("Ninguna figura encontrada");
-				}
 				redrawCanvas();
 			}
 		});
 
+		// Esta mal el primer if, lo dejamos para que corra.
 		canvas.setOnMouseDragged(event -> {
-			if (selectionButton.isSelected()) {
+			if (buttonsGroup.getSelectedButton().getText().equals("Seleccionar")) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
 				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
-				try {
-					selectedFigure.move(diffX, diffY);
-				}catch(NullPointerException e){
-					System.out.println("No seleccionaste una figura");  /* Esta linea de
-					try catch la dejo por ahora porque cuando seleccionas afuera de una figura tira null pointer excep*/
-				}
+				if(selectedFigure != null)
+					selectedFigure.getFigure().move(diffX, diffY);
 				redrawCanvas();
 			}
 		});
 
-	}
-
-	// Usa el width y el height del Rectangulo y usa los metodos fillRect (te llena el rectangulo) , storkeRect(hace el borde del rectangulo).
-
-	void redrawCanvas() {
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // ? Esta linea borra todo.
-		for(Figure figure : canvasState.figures()) {
-			// tiene sentido el if ? Estoy borrando todo el canvas, que selectedFigure puede haber?
-			if(figure == selectedFigure) {
-				gc.setStroke(Color.RED);
-			} //Necesario el else?
-			else {
-				gc.setStroke(lineColor);
-			}
-			gc.setFill(fillColor); // ! deberia ir fuera del for, establece de que color se rellena en el canvas
-			// figure.draw(gc);
-			if(figure instanceof Rectangle) {
-				Rectangle rectangle = (Rectangle) figure;
-				gc.fillRect(rectangle.getTopLeft().getX(), rectangle.getTopLeft().getY(),
-						Math.abs(rectangle.getTopLeft().getX() - rectangle.getBottomRight().getX()), Math.abs(rectangle.getTopLeft().getY() - rectangle.getBottomRight().getY()));
-				gc.strokeRect(rectangle.getTopLeft().getX(), rectangle.getTopLeft().getY(),
-						Math.abs(rectangle.getTopLeft().getX() - rectangle.getBottomRight().getX()), Math.abs(rectangle.getTopLeft().getY() - rectangle.getBottomRight().getY()));
-			} else if(figure instanceof Circle) {
-				Circle circle = (Circle) figure;
-				double diameter = circle.getHeight();
-				gc.fillOval(circle.getTopLeft().getX(), circle.getTopLeft().getY(), diameter, diameter);
-				gc.strokeOval(circle.getTopLeft().getX(), circle.getTopLeft().getY(), diameter, diameter);
-			}
-		}
+		return canvas;
 	}
 }

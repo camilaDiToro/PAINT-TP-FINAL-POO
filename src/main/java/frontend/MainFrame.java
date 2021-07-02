@@ -1,6 +1,5 @@
 package main.java.frontend;
 
-import main.java.backend.CanvasState;
 import javafx.scene.layout.VBox;
 
 public class MainFrame extends VBox {

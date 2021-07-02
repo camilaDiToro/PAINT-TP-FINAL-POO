@@ -12,4 +12,6 @@ public class MyCustomGroup extends ToggleGroup {
         Toggle toReturn = getSelectedToggle();
         return (ToggleButton) toReturn;
     }
+
+
 }
