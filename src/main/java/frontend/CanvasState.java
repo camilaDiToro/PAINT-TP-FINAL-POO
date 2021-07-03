@@ -7,18 +7,18 @@ import java.util.*;
 
 public class CanvasState {
 
-    private final List<Render<MovableDrawing>> renders = new ArrayList<>();
+    private final List<Render<? extends MovableDrawing>> renders = new ArrayList<>();
 
-    public void addRenderFigure(Render<MovableDrawing> renderFigure) {
-        renders.add(renderFigure);
+    public void addRenderFigure(Render<? extends MovableDrawing> renderFigure) {
+        renders.add(0, renderFigure);
     }
 
-    public void deleteRenderFigures(Collection<Render<MovableDrawing>> toRemove){
+    public void deleteRenderFigures(Collection<Render<? extends MovableDrawing>> toRemove) {
         renders.removeAll(toRemove);
     }
 
-    public Iterable<Render<MovableDrawing>> renderFigures(){
-        return new ArrayList<>(renders);
+    public List<Render< ? extends MovableDrawing>> renderFigures() {
+        return renders;
     }
 
 }

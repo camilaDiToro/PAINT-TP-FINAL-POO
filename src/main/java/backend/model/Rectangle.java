@@ -13,12 +13,12 @@ public class Rectangle extends Figure {
 
     @Override
     public Point[] getPoints() {
-        return new Point[]{getTopLeft(), getBottomRight()};
+        return new Point[] { getTopLeft(), getBottomRight() };
     }
 
     @Override
     public boolean pointBelongs(Point point) {
-        return point.getX() > getTopLeft().getX() && point.getX() < getBottomRight().getX()
-                && point.getY() > getTopLeft().getY() && point.getY() < getBottomRight().getY();
+        return point.getX() >= getTopLeft().getX() && point.getX() <= getBottomRight().getX()
+                && point.getY() >= getTopLeft().getY() && point.getY() <= getBottomRight().getY();
     }
 }
