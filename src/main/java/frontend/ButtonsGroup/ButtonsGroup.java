@@ -14,19 +14,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/* Suluciones para evitar el PersistentButtonToggleGroup:
-
-    1)
-    toggleGroup.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
-    if (newVal == null)
-        oldVal.setSelected(true);
-    });
-    link: https://stackoverflow.com/questions/46835087/prevent-a-toggle-group-from-not-having-a-toggle-selected-java-fx
-
- */
-
 public class ButtonsGroup {
 
+    // Por qué no herencia en vez de composicion??
     private final ToggleGroup group = new PersistentButtonToggleGroup();
 
     private final Map<ToggleButton, ButtonsOption> buttonsMap = new HashMap<>();
@@ -34,10 +24,6 @@ public class ButtonsGroup {
     public void addButtonToGroup(ButtonsOption buttonsOption, String buttonText) {
         ToggleButton button = new ToggleButton(buttonText);
         button.setToggleGroup(group);
-        button.setMinWidth(90);
-        button.setMinHeight(20);
-        button.setStyle("-fx-font-weight: bold;");
-        button.setCursor(Cursor.HAND);
         buttonsMap.put(button, buttonsOption);
     }
 
@@ -49,6 +35,7 @@ public class ButtonsGroup {
             }
         }
     }
+
     public ButtonsOption getSelectedOption() {
         return buttonsMap.get(group.getSelectedToggle());
     }

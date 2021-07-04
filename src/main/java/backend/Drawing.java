@@ -17,11 +17,8 @@ public abstract class Drawing implements MovableDrawing{
     public Point getSecondPoint() { return this.secondPoint; }
 
     @Override
-    public List<Point> getPoints() {
-        List<Point> toReturn = new ArrayList<>();
-        toReturn.add(firstPoint);
-        toReturn.add(secondPoint);
-        return toReturn;
+    public Point[] getPoints() {
+        return new Point[]{firstPoint,secondPoint};
     }
 
     @Override

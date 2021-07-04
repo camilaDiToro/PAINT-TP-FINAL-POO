@@ -5,13 +5,13 @@ import java.util.List;
 public interface MovableDrawing extends Movable{
 
     // Metodo que retorna un vector de Point[] que son los que conforman la figura.
-    List<Point> getPoints();
+    Point[] getPoints();
 
     // Metodo que exige la interfaz movable.
     // Metodo que mueve los puntos de cada figura.
     // Recibe por párametro el diferencial que se debe agregar al punto en sus coordenadas x e y
      default void move(double diffX, double diffY){
-         List<Point> points = getPoints();
+        Point[] points = getPoints();
         for (Point p : points) {
             p.move(diffX,diffY);
         }

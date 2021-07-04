@@ -1,12 +1,17 @@
-package main.java.frontend;
+package main.java.frontend.DrawingArea;
 
 import main.java.backend.*;
 import main.java.backend.Point;
+import main.java.frontend.CanvasState;
+import main.java.frontend.DrawingArea.ToolPanel;
+import main.java.frontend.FigureStyle;
 import main.java.frontend.Renderers.*;
 import main.java.frontend.ButtonsGroup.ButtonsGroup;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
+import main.java.frontend.StatusPane;
+import javafx.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +29,6 @@ public class PaintPane extends BorderPane {
 	// Grupo de botones
 	private final ButtonsGroup buttonsGroup;
 
-
 	// Lista de selecciones
 	private final List<Render<? extends MovableDrawing>> selectedList = new ArrayList<>();
 
@@ -34,7 +38,10 @@ public class PaintPane extends BorderPane {
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
-		ToolPanel toolPanel = new ToolPanel(10, canvasState, selectedList, this::redrawCanvas);
+		ToolPanel toolPanel = new ToolPanel(10, canvasState, selectedList);
+
+		this.addEventHandler(ActionEvent.ACTION, (event -> redrawCanvas()));
+		this.
 		buttonsGroup = toolPanel.getButtonsGroup();
 		Canvas canvas = makeCanvas();
 		gc = canvas.getGraphicsContext2D();
@@ -46,6 +53,8 @@ public class PaintPane extends BorderPane {
 	private Canvas makeCanvas() {
 
 		Canvas canvas = new Canvas(800, 600);
+
+
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
@@ -67,7 +76,7 @@ public class PaintPane extends BorderPane {
 
 		canvas.setOnMouseClicked(event -> {
 			Point eventPoint = new Point(event.getX(), event.getY());
-			if (eventPoint.distance(startPoint) > 10) // Ver de cambiarlo si es posible.
+			if (eventPoint.distance(startPoint) > 1) // Ver de cambiarlo si es posible.
 				buttonsGroup.getSelectedOption().mouseClickAndDrag(startPoint, eventPoint);
 			else
 				buttonsGroup.getSelectedOption().mouseClicked(eventPoint);

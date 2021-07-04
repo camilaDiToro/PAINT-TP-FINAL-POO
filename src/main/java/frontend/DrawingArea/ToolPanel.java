@@ -1,5 +1,6 @@
-package main.java.frontend;
+package main.java.frontend.DrawingArea;
 
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -10,6 +11,8 @@ import main.java.backend.Rectangle;
 import main.java.frontend.Buttons.FigureButtons;
 import main.java.frontend.Buttons.SelectButton;
 import main.java.frontend.ButtonsGroup.ButtonsGroup;
+import main.java.frontend.CanvasState;
+import main.java.frontend.FigureStyle;
 import main.java.frontend.Renderers.LineRender;
 import main.java.frontend.Renderers.RectangleRender;
 import main.java.frontend.Renderers.Render;
@@ -26,22 +29,43 @@ public class ToolPanel extends VBox{
     private final FigureStyle currentFigureStyle = new FigureStyle(FigureStyle.fillColorDefault, FigureStyle.lineColorDefault, FigureStyle.strokeWidthDefault);
     private final List<Render<? extends MovableDrawing>> selectedList;
 
-    // Tiene que volar
-    private final Runnable redraw;
 
-    public ToolPanel(double spacing, CanvasState canvasState, List<Render<? extends MovableDrawing>> selectedList, Runnable redraw){
+    public ToolPanel(double spacing, CanvasState canvasState, List<Render<? extends MovableDrawing>> selectedList){
 
         super(spacing);
         this.canvasState = canvasState;
         this.selectedList = selectedList;
-        this.redraw = redraw;
 
         setPadding(new Insets(10));
         setStyle("-fx-background-color: #D3D3D3");
         setPrefWidth(120);
-        
+
+        //---------------------Botones----------------------------------
+        //Creamos los botones del Tool panel y los agregamos al ToolPanel
+        createButtons();
+
+        //----------------------Bordes-----------------------------------
+        Label border = new Label("Borde");
+        getChildren().add(border);
+
+        //Creamos el slider para definir el grosor de la linea y lo agregamos al ToolPanel
+        createSlider();
+        //Creamos el ColorPicker para definir el color de la linea y lo agregamos al ToolPanel
+        createBorderColorPicker();
+
+        //---------------------Relleno-------------------------------------
+        Label fill = new Label("Relleno");
+        getChildren().add(fill);
+
+        //Creamos el ColorPicker para definir el color de relleno y lo agregamos al ToolPanel
+        createFillColorPicker();
+
+    }
+
+    private void createButtons(){
         SelectButton selectionOption = new SelectButton(selectedList, canvasState.renderFigures());
         buttonsGroup.addButtonToGroup(selectionOption, "Seleccionar");
+
 
         FigureButtons<Square> squareOption = new FigureButtons<>(canvasState.renderFigures(),
                 (TopLeft, BottomRight) -> new RectangleRender<>(new Square(TopLeft, BottomRight), currentFigureStyle));
@@ -69,19 +93,21 @@ public class ToolPanel extends VBox{
             getChildren().add(button);
             setButtonStyle(button);
         }
-        
+
         Button[] toAdd = new Button[]{new Button("Borrar"),new Button("Al frente"),new Button("Al fondo")};
-       
+
         for(Button button: toAdd){
             setButtonStyle(button);
             getChildren().add(button);
         }
-        
+
         toAdd[0].setOnAction(this::deleteAction);
         toAdd[1].setOnAction(this::moveToFront);
         toAdd[2].setOnAction(this::moveToBack);
 
+    }
 
+    private void createSlider(){
         Slider slider = new Slider(1, 50, 5);
         slider.setShowTickMarks(true);
         slider.setShowTickLabels(true);
@@ -94,39 +120,35 @@ public class ToolPanel extends VBox{
             for(Render<? extends MovableDrawing> render: selectedList){
                 render.setStrokeWidth(strokeWidth);
             }
-            redraw.run();
+            ActionEvent.fireEvent(this,new ActionEvent());
             currentFigureStyle.setStrokeWidth(strokeWidth);
         });
-
-        Label border = new Label("Borde");
-        Label fill = new Label("Relleno");
-
-        getChildren().add(border);
+        slider.getOnMouseClicked();
         getChildren().add(slider);
+    }
 
-        ColorPicker colorPickerBg = new ColorPicker(FigureStyle.fillColorDefault);
-        colorPickerBg.setOnAction((event) -> {
-            Color color = colorPickerBg.getValue();
-            for(Render<? extends MovableDrawing> render: selectedList){
-                 render.setBgColor(color);
-            }
-            redraw.run();
-            currentFigureStyle.setBgColor(color);
-
-        });
-
+    private void createBorderColorPicker(){
         ColorPicker colorPickerStroke = new ColorPicker(FigureStyle.lineColorDefault);
         colorPickerStroke.setOnAction((event) -> {
             Color color = colorPickerStroke.getValue();
             for(Render<? extends MovableDrawing> render: selectedList){
                 render.setStrokeColor(color);
             }
-            redraw.run();
             currentFigureStyle.setStrokeColor(color);
         });
-
         getChildren().add(colorPickerStroke);
-        getChildren().add(fill);
+    }
+
+    private void createFillColorPicker(){
+        ColorPicker colorPickerBg = new ColorPicker(FigureStyle.fillColorDefault);
+        colorPickerBg.setOnAction((event) -> {
+            Color color = colorPickerBg.getValue();
+            for(Render<? extends MovableDrawing> render: selectedList){
+                render.setBgColor(color);
+            }
+            currentFigureStyle.setBgColor(color);
+
+        });
         getChildren().add(colorPickerBg);
     }
 
@@ -143,17 +165,13 @@ public class ToolPanel extends VBox{
     
     private void deleteAction(ActionEvent actionEvent){
         canvasState.deleteRenderFigures(selectedList);
-        redraw.run();
     }
 
     private void moveToFront(ActionEvent actionEvent){
         canvasState.moveToFront(selectedList);
-        redraw.run();
     }
     
     private void moveToBack(ActionEvent actionEvent){
         canvasState.moveToBack(selectedList);
-        redraw.run();
     }
-
 }

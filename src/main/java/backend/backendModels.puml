@@ -30,9 +30,9 @@ abstract class Drawing implements MovableDrawing{
 
 abstract class Figure extends Drawing{
     +Figure(Point startPoint, Point endPoint)
-    +public boolean isDrawable()
-    +public Double getWidth()
-    +public Double getHeight()
+    +boolean isDrawable()
+    +Double getWidth()
+    +Double getHeight()
 }
 
 class Rectangle extends Figure{

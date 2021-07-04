@@ -16,10 +16,8 @@ public abstract class RoundedFigure extends Figure{
     }
 
     @Override
-    public List<Point> getPoints() {
-        List<Point> toReturn = getPoints();
-        toReturn.add(centerPoint);
-        return toReturn;
+    public Point[] getPoints() {
+        return new Point[]{getFirstPoint(), getSecondPoint(), centerPoint};
     }
 
     @Override
