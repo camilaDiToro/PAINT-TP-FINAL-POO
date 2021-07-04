@@ -12,7 +12,7 @@ public abstract class Render<F extends MovableDrawing> {
 
     public Render(F movableDrawing, FigureStyle fg) {
         this.movableDrawing = movableDrawing;
-        this.currentFigureStyle = fg;
+        this.currentFigureStyle = new FigureStyle(fg.getBgColor(), fg.getStrokeColor(), fg.getStrokeWidth());
     }
 
     public abstract void render(GraphicsContext graphicsContext);

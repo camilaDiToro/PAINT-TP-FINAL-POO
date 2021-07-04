@@ -40,6 +40,7 @@ public class PaintPane extends BorderPane {
 		gc = canvas.getGraphicsContext2D();
 		setLeft(toolPanel);
 		setRight(canvas);
+
 	}
 
 	private Canvas makeCanvas() {

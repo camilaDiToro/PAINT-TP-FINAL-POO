@@ -15,7 +15,6 @@ public class FigureButtons<F extends MovableDrawing> implements ButtonsOption {
 
     private final RendererCreator<F> rendererCreator;
     private final List<Render<? extends MovableDrawing>> renderList;
-    //private final FigureStyle figureStyle;
     private Point startPoint;
 
 

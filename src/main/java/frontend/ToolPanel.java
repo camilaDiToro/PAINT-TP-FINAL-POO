@@ -44,28 +44,23 @@ public class ToolPanel extends VBox{
         buttonsGroup.addButtonToGroup(selectionOption, "Seleccionar");
 
         FigureButtons<Square> squareOption = new FigureButtons<>(canvasState.renderFigures(),
-                (TopLeft, BottomRight) -> new RectangleRender<>(new Square(TopLeft, BottomRight),
-                        new FigureStyle(currentFigureStyle.getBgColor(), currentFigureStyle.getStrokeColor(), currentFigureStyle.getStrokeWidth())));
+                (TopLeft, BottomRight) -> new RectangleRender<>(new Square(TopLeft, BottomRight), currentFigureStyle));
         buttonsGroup.addButtonToGroup(squareOption, "Cuadrado");
 
         FigureButtons<Rectangle> rectangleOption = new FigureButtons<>(canvasState.renderFigures(),
-                (TopLeft, BottomRight) -> new RectangleRender<>(new Rectangle(TopLeft, BottomRight),
-                        new FigureStyle(currentFigureStyle.getBgColor(), currentFigureStyle.getStrokeColor(), currentFigureStyle.getStrokeWidth())));
+                (TopLeft, BottomRight) -> new RectangleRender<>(new Rectangle(TopLeft, BottomRight),currentFigureStyle));
         buttonsGroup.addButtonToGroup(rectangleOption, "Rectangulo");
 
         FigureButtons<Circle> circleOption = new FigureButtons<>(canvasState.renderFigures(),
-                (TopLeft, BottomRight) -> new RoundedFigureRender<>(new Circle(TopLeft, BottomRight),
-                        new FigureStyle(currentFigureStyle.getBgColor(), currentFigureStyle.getStrokeColor(), currentFigureStyle.getStrokeWidth())));
+                (TopLeft, BottomRight) -> new RoundedFigureRender<>(new Circle(TopLeft, BottomRight),currentFigureStyle));
         buttonsGroup.addButtonToGroup(circleOption, "Círculo");
 
         FigureButtons<Ellipse> ellipseOption = new FigureButtons<>( canvasState.renderFigures(),
-                (TopLeft, BottomRight) -> new RoundedFigureRender<>(new Ellipse(TopLeft, BottomRight),
-                        new FigureStyle(currentFigureStyle.getBgColor(), currentFigureStyle.getStrokeColor(), currentFigureStyle.getStrokeWidth())));
+                (TopLeft, BottomRight) -> new RoundedFigureRender<>(new Ellipse(TopLeft, BottomRight),currentFigureStyle));
         buttonsGroup.addButtonToGroup(ellipseOption, "Elipse");
 
         FigureButtons<Line> lineOption = new FigureButtons<>(canvasState.renderFigures(),
-                (TopLeft, BottomRight) -> new LineRender(new Line(TopLeft, BottomRight),
-                        new FigureStyle(currentFigureStyle.getBgColor(), currentFigureStyle.getStrokeColor(), currentFigureStyle.getStrokeWidth())));
+                (TopLeft, BottomRight) -> new LineRender(new Line(TopLeft, BottomRight), currentFigureStyle));
         buttonsGroup.addButtonToGroup(lineOption, "Linea");
 
         buttonsGroup.setSelectedOption(selectionOption);
