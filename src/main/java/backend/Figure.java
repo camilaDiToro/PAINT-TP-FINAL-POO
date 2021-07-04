@@ -1,12 +1,17 @@
-package main.java.backend.model;
+package main.java.backend;
 
 public abstract class Figure implements MovableDrawing {
 
     private final Point topLeft, bottomRight;
 
-    public Figure(Point topLeft, Point bottomRight){
-        this.topLeft=topLeft;
-        this.bottomRight=bottomRight;
+    public Figure(Point startPoint, Point endPoint){
+        this.topLeft = startPoint;
+        this.bottomRight = endPoint;
+    }
+
+    @Override
+    public boolean isDrawable(){
+       return (topLeft.getX() <= bottomRight.getX() && topLeft.getY() <= bottomRight.getY());
     }
 
     @Override
@@ -21,4 +26,6 @@ public abstract class Figure implements MovableDrawing {
     public Double getWidth(){ return topLeft.distanceX(bottomRight); }
 
     public Double getHeight(){ return topLeft.distanceY(bottomRight); }
+
+
 }

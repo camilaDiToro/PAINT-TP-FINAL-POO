@@ -1,4 +1,4 @@
-package main.java.backend.model;
+package main.java.backend;
 
 public abstract class RoundedFigure extends Figure{
 

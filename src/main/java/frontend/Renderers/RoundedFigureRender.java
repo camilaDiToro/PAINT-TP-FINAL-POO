@@ -1,23 +1,19 @@
 package main.java.frontend.Renderers;
+
 import javafx.scene.canvas.GraphicsContext;
-import main.java.backend.model.RoundedFigure;
+import javafx.scene.paint.Color;
+import main.java.backend.RoundedFigure;
+import main.java.frontend.FigureStyle;
 
-public class RoundedFigureRender<F extends RoundedFigure> implements Render<F> {
+public class RoundedFigureRender<F extends RoundedFigure> extends Render<F> {
 
-    private final F roundedFigure;
-
-    public RoundedFigureRender(F roundedFigure) {
-        this.roundedFigure = roundedFigure;
-    }
-
-    public F getFigure() {
-        return roundedFigure;
+    public RoundedFigureRender(F roundedFigure, FigureStyle fg) {
+        super(roundedFigure, fg);
     }
 
     public void render(GraphicsContext gc) {
-        gc.fillOval(roundedFigure.getTopLeft().getX(),roundedFigure.getTopLeft().getY(), roundedFigure.getWidth(), roundedFigure.getHeight());
-        gc.strokeOval(roundedFigure.getTopLeft().getX(),roundedFigure.getTopLeft().getY(), roundedFigure.getWidth(), roundedFigure.getHeight());
+        gc.fillOval(getFigure().getTopLeft().getX(), getFigure().getTopLeft().getY(), getFigure().getWidth(), getFigure().getHeight());
+        gc.strokeOval(getFigure().getTopLeft().getX(), getFigure().getTopLeft().getY(), getFigure().getWidth(), getFigure().getHeight());
     }
-
 }
 

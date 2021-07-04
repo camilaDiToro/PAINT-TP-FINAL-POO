@@ -1,4 +1,4 @@
-package main.java.backend.model;
+package main.java.backend;
 
 public class Line implements MovableDrawing{
 
@@ -7,6 +7,11 @@ public class Line implements MovableDrawing{
     public Line(Point firstPoint, Point secondPoint){
         this.firstPoint = firstPoint;
         this.secondPoint = secondPoint;
+    }
+
+    @Override
+    public boolean isDrawable() {
+        return true;
     }
 
     public Point getFirstPoint() { return this.firstPoint; }
@@ -32,6 +37,5 @@ public class Line implements MovableDrawing{
     public String toString(){
         return String.format("Linea [Extremo 1: %s, Extremo 2: %s]",getFirstPoint(), getSecondPoint());
     }
-
 
 }

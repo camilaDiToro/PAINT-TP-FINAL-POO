@@ -1,4 +1,4 @@
-package main.java.backend.model;
+package main.java.backend;
 
 public class Point implements Movable{
 
@@ -22,7 +22,7 @@ public class Point implements Movable{
     }
 
     public double distanceX(Point point){
-        return Math.abs(x- point.getX());
+        return Math.abs(x - point.getX());
     }
 
     public double distanceY(Point point){

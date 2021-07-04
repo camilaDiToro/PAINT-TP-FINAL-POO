@@ -3,11 +3,18 @@ package main.java.frontend;
 import javafx.scene.paint.Color;
 
 public class FigureStyle {
+
+    // Selection color
+    public static final Color lineColorSelected = Color.RED;
+    public static final Color lineColorDefault = Color.BLACK;
+    public static final Color fillColorDefault = Color.YELLOW;
+    public static final double strokeWidthDefault = 2;
+
     private Color bgColor;
     private Color strokeColor;
-    private int strokeWidth;
+    private double strokeWidth;
 
-    public FigureStyle(Color bgColor, Color strokeColor, int strokeWidth) {
+    public FigureStyle(Color bgColor, Color strokeColor, double strokeWidth) {
         this.bgColor = bgColor;
         this.strokeColor = strokeColor;
         this.strokeWidth = strokeWidth;
@@ -21,7 +28,7 @@ public class FigureStyle {
         this.strokeColor = strokeColor;
     }
 
-    public void setStrokeWidth(int strokeWidth) {
+    public void setStrokeWidth(double strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
 
@@ -33,7 +40,7 @@ public class FigureStyle {
         return strokeColor;
     }
 
-    public int getStrokeWidth() {
+    public double getStrokeWidth() {
         return strokeWidth;
     }
 }

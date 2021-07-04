@@ -1,21 +1,19 @@
 package main.java.frontend.Renderers;
 
 import javafx.scene.canvas.GraphicsContext;
-import main.java.backend.model.Line;
+import main.java.backend.Line;
+import javafx.scene.paint.Color;
+import main.java.frontend.FigureStyle;
 
-public class LineRender implements Render<Line> {
+public class LineRender extends Render<Line> {
 
-    private final Line line;
-
-    public LineRender(Line line) {
-        this.line = line;
+    public LineRender(Line line, FigureStyle fg) {
+        super(line, fg);
     }
 
     public void render(GraphicsContext gc) {
-        gc.strokeLine(line.getFirstPoint().getX(), line.getFirstPoint().getY(), line.getSecondPoint().getX(), line.getSecondPoint().getY());
+        gc.strokeLine(getFigure().getFirstPoint().getX(), getFigure().getFirstPoint().getY(), getFigure().getSecondPoint().getX(), getFigure().getSecondPoint().getY());
     }
 
-    public Line getFigure() {
-        return line;
-    }
+
 }

@@ -1,4 +1,4 @@
-package main.java.backend.model;
+package main.java.backend;
 
 public class Circle extends RoundedFigure {
 

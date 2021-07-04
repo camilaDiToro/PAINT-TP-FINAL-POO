@@ -1,26 +1,24 @@
 package main.java.frontend.Buttons;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-
-import main.java.backend.model.MovableDrawing;
-import main.java.backend.model.Point;
-import main.java.backend.model.Rectangle;
+import main.java.backend.MovableDrawing;
+import main.java.backend.Point;
+import main.java.backend.Rectangle;
 import main.java.frontend.Renderers.Render;
 
-public class SelectOption implements Option {
+/***
+ *  Boton "Seleccionar"
+ */
 
-    private List<Render<? extends MovableDrawing>> selectedList;
+public class SelectButton implements ButtonsOption {
+
+    private final List<Render<? extends MovableDrawing>> selectedList;
+    private final List<Render<? extends MovableDrawing>> renderList;
     private Rectangle imaginaryRect;
-    private List<Render<? extends MovableDrawing>> renderList;
-    private Consumer<Point> updateInfoBarOnClick;
     private Point lastPosition;
 
-    public SelectOption(List<Render<? extends MovableDrawing>> selectedList,
-            List<Render<? extends MovableDrawing>> renderList, Consumer<Point> updateInfoBarOnClick) {
+    public SelectButton(List<Render<? extends MovableDrawing>> selectedList, List<Render<? extends MovableDrawing>> renderList) {
         this.renderList = renderList;
-        this.updateInfoBarOnClick = updateInfoBarOnClick;
         this.selectedList = selectedList;
     }
 
@@ -30,32 +28,20 @@ public class SelectOption implements Option {
     }
 
     @Override
-    public void mouseReleased(Point eventPoint) {
-
-    }
-
-    @Override
     public void mouseClicked(Point eventPoint) {
-        // Si tocaste afuera del rectangulo imaginario, vacio la lista.
         if (imaginaryRect == null || !imaginaryRect.pointBelongs(eventPoint)) {
             selectedList.clear();
             imaginaryRect = null;
 
+            Render<? extends MovableDrawing> selectedDrawing = null;
             for (Render<? extends MovableDrawing> render : renderList) {
                 if (render.getFigure().pointBelongs(eventPoint)) {
-                    selectedList.add(render);
-                    break;
+                    selectedDrawing = render;
                 }
             }
+            if(selectedDrawing!=null)
+                selectedList.add(selectedDrawing);
         }
-
-        if (selectedList.isEmpty() || selectedList.size() == 1) {
-            updateInfoBarOnClick.accept(eventPoint);
-        }
-    }
-
-    @Override
-    public void mouseMoved(Point eventPoint) {
 
     }
 
@@ -72,11 +58,19 @@ public class SelectOption implements Option {
 
     @Override
     public void mouseClickAndDrag(Point pressedPoint, Point releasePoint) {
-        imaginaryRect = new Rectangle(pressedPoint, releasePoint); // Lo esta tomando bien
+        imaginaryRect = new Rectangle(pressedPoint, releasePoint);
         for (Render<? extends MovableDrawing> render : renderList) {
             if (render.getFigure().isContained(imaginaryRect)) {
                 selectedList.add(render);
             }
         }
+    }
+
+    @Override
+    public void mouseReleased(Point eventPoint) {
+    }
+
+    @Override
+    public void mouseMoved(Point eventPoint) {
     }
 }
