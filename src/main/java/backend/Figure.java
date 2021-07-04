@@ -1,31 +1,19 @@
 package main.java.backend;
 
-public abstract class Figure implements MovableDrawing {
+public abstract class Figure  extends Drawing {
 
-    private final Point topLeft, bottomRight;
 
     public Figure(Point startPoint, Point endPoint){
-        this.topLeft = startPoint;
-        this.bottomRight = endPoint;
+       super(startPoint, endPoint);
     }
 
     @Override
     public boolean isDrawable(){
-       return (topLeft.getX() <= bottomRight.getX() && topLeft.getY() <= bottomRight.getY());
+       return (getFirstPoint().getX() <= getSecondPoint().getX() && getFirstPoint().getY() <= getSecondPoint().getY());
     }
 
-    @Override
-    public boolean isContained(Rectangle rectangle){
-        return rectangle.pointBelongs(topLeft) && rectangle.pointBelongs(bottomRight);
-    }
+    public Double getWidth(){ return getFirstPoint().distanceX(getSecondPoint()); }
 
-    public Point getTopLeft() { return this.topLeft; }
-
-    public Point getBottomRight() { return this.bottomRight; }
-
-    public Double getWidth(){ return topLeft.distanceX(bottomRight); }
-
-    public Double getHeight(){ return topLeft.distanceY(bottomRight); }
-
+    public Double getHeight(){ return getFirstPoint().distanceY(getSecondPoint()); }
 
 }

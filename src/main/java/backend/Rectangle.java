@@ -2,23 +2,19 @@ package main.java.backend;
 
 public class Rectangle extends Figure {
 
-    public Rectangle(Point topLeft, Point bottomRight) {
-        super(topLeft, bottomRight);
+    public Rectangle(Point startPoint, Point endPoint) {
+        super(startPoint, endPoint);
     }
 
     @Override
     public String toString() {
-        return String.format("Rectángulo [ %s , %s ]", getTopLeft(), getBottomRight());
+        return String.format("Rectángulo [ %s , %s ]", getFirstPoint(), getSecondPoint());
     }
 
-    @Override
-    public Point[] getPoints() {
-        return new Point[] { getTopLeft(), getBottomRight() };
-    }
 
     @Override
     public boolean pointBelongs(Point point) {
-        return point.getX() >= getTopLeft().getX() && point.getX() <= getBottomRight().getX()
-                && point.getY() >= getTopLeft().getY() && point.getY() <= getBottomRight().getY();
+        return point.getX() >= getFirstPoint().getX() && point.getX() <= getSecondPoint().getX()
+                && point.getY() >= getFirstPoint().getY() && point.getY() <= getSecondPoint().getY();
     }
 }

@@ -11,8 +11,8 @@ public class RectangleRender<F extends Rectangle> extends Render<F>{
     }
 
     public void render( GraphicsContext  gc ){
-        gc.fillRect(getFigure().getTopLeft().getX(), getFigure().getTopLeft().getY(), getFigure().getWidth(), getFigure().getHeight());
-        gc.strokeRect(getFigure().getTopLeft().getX(), getFigure().getTopLeft().getY(), getFigure().getWidth(), getFigure().getHeight());
+        gc.fillRect(getFigure().getFirstPoint().getX(), getFigure().getFirstPoint().getY(), getFigure().getWidth(), getFigure().getHeight());
+        gc.strokeRect(getFigure().getFirstPoint().getX(), getFigure().getFirstPoint().getY(), getFigure().getWidth(), getFigure().getHeight());
     }
 
 }

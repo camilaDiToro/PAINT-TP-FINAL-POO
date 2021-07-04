@@ -1,0 +1,91 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
+interface Movable{
+    +void move(double diffX, double diffY)
+}
+
+interface MovableDrawing extends Movable{
+    +List<Point> getPoints()
+    +default void move(double diffX, double diffY)
+    +boolean isDrawable()
+    +boolean pointBelongs(Point point)
+    +boolean isContained(Rectangle rectangle)
+}
+
+
+
+abstract class Drawing implements MovableDrawing{
+    -firstPoint
+    -secondPoint
+    +Drawing(Point firstPoint, Point secondPoint)
+    +Point getFirstPoint()
+    +Point getSecondPoint()
+    +List<Point> getPoints()
+    +boolean isContained(Rectangle rectangle)
+}
+
+
+abstract class Figure extends Drawing{
+    +Figure(Point startPoint, Point endPoint)
+    +public boolean isDrawable()
+    +public Double getWidth()
+    +public Double getHeight()
+}
+
+class Rectangle extends Figure{
+    +Rectangle(Point startPoint, Point endPoint)
+    +String toString()
+    +boolean pointBelongs(Point point)
+}
+
+class Square extends Rectangle{
+    +Square(Point startPoint, Point endPoint )
+    +String toString()
+}
+
+class Line extends Drawing{
+    +Line(Point firstPoint, Point secondPoint)
+    +boolean isDrawable()
+    +boolean pointBelongs(Point point)
+    +String toString()
+}
+
+abstract class RoundedFigure extends Figure{
+    -Point centerPoint
+    +RoundedFigure(Point startPoint, Point endPoint, Point centerPoint)
+    +Point getCenterPoint()
+    +List<Point> getPoints()
+    +boolean pointBelongs(Point point)
+}
+
+Drawing *-- Point
+RoundedFigure *-- Point
+class Ellipse extends RoundedFigure{
+    +Ellipse(Point startPoint, Point endPoint)
+    +String toString()
+}
+
+class Point implements Movable{
+    -double x,y
+    +double getX()
+    +double getY()
+    +double distanceX()
+    +double distanceY()
+    +double distance()
+    +void move(diffX, diffY)
+    +String toString()
+}
+
+
+class Circle extends RoundedFigure{
+    +Circle(Point startPoint, Point endPoint)
+    +String toString()
+}
+
+
+
+
+@enduml

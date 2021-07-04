@@ -1,11 +1,13 @@
 package main.java.backend;
 
+import java.util.List;
+
 public abstract class RoundedFigure extends Figure{
 
     private Point centerPoint;
 
-    public RoundedFigure(Point topLeft, Point bottomRight, Point centerPoint){
-        super(topLeft,bottomRight);
+    public RoundedFigure(Point startPoint, Point endPoint, Point centerPoint){
+        super(startPoint,endPoint);
         this.centerPoint = centerPoint;
     }
 
@@ -14,8 +16,10 @@ public abstract class RoundedFigure extends Figure{
     }
 
     @Override
-    public Point[] getPoints() {
-        return new Point[]{getTopLeft(),getBottomRight(),centerPoint};
+    public List<Point> getPoints() {
+        List<Point> toReturn = getPoints();
+        toReturn.add(centerPoint);
+        return toReturn;
     }
 
     @Override

@@ -12,8 +12,8 @@ public class RoundedFigureRender<F extends RoundedFigure> extends Render<F> {
     }
 
     public void render(GraphicsContext gc) {
-        gc.fillOval(getFigure().getTopLeft().getX(), getFigure().getTopLeft().getY(), getFigure().getWidth(), getFigure().getHeight());
-        gc.strokeOval(getFigure().getTopLeft().getX(), getFigure().getTopLeft().getY(), getFigure().getWidth(), getFigure().getHeight());
+        gc.fillOval(getFigure().getFirstPoint().getX(), getFigure().getFirstPoint().getY(), getFigure().getWidth(), getFigure().getHeight());
+        gc.strokeOval(getFigure().getFirstPoint().getX(), getFigure().getFirstPoint().getY(), getFigure().getWidth(), getFigure().getHeight());
     }
 }
 
