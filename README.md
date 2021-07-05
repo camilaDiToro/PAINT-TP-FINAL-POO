@@ -1,4 +1,4 @@
-# Trabajo Práctico Final - Programación Orientada a Objetos.
+# Trabajo Práctico Final - Programación Orientada a Objetos
 
 En el siguiente trabajo práctico pusimos en práctica nuestros conocimientos para llevar a cabo el desarrollo de una aplicación de escritorio similar al famoso Paint.
 
@@ -8,7 +8,7 @@ Junto con este archivo se encuentra un informe detallado sobre el funcionamiento
 
 El código se llevo adelante con la version 15 de Java FX. Recordar incluir las siguientes líneas a la máquina virtual al correr el main en la clase AppLauncher dentro de la carpeta App:
 
-  --module-path C:\Users\$$$\Documents\JavaFX\javafx-sdk-16\lib --add-modules=javafx.swing,javafx.graphics,javafx.fxml,javafx.media,javafx.web
+     --module-path C:\Users\$$$\Documents\JavaFX\javafx-sdk-16\lib --add-modules=javafx.swing,javafx.graphics,javafx.fxml,javafx.media,javafx.web
 
 donde $$$ se debe completar para llegar correctamente a las librerias.
 
@@ -27,3 +27,6 @@ En el escritorio del usuario se abrirá la aplicación Paint 2.0 en la cual, el 
 # Errores
 
 El programa no aborta en ningún momento y no lanza excepciones durante la ejecución del programa.
+
+     Nota: El programa no se corrió en MacOSX dado que ninguno de los participantes posee alguna.
+     
