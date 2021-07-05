@@ -11,10 +11,10 @@ class ToolPane {
 
     + ToolPanel(double spacing, CanvasState canvasState, List<Render<? extends MovableDrawing>> selectedList)
     + void createButtons()
+    + ButtonsGroup getButtonsGroup()
     - void createSlider()
     - void createBorderColorPicker()
     - void createFillColorPicker()
-    + ButtonsGroup getButtonsGroup()
     - void setButtonStyle(ButtonBase button)
     - void deleteAction(ActionEvent actionEvent)
     - void moveToFront(ActionEvent actionEvent)
