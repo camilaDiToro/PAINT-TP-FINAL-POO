@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import main.java.backend.*;
 import main.java.backend.Rectangle;
-import main.java.frontend.Application.CanvasState;
+import main.java.frontend.App.CanvasState;
 import main.java.frontend.Buttons.FigureButtons;
 import main.java.frontend.Buttons.ToggleOptionGroup;
 import main.java.frontend.Buttons.SelectButton;

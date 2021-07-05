@@ -1,10 +1,9 @@
-package main.java.frontend.Application;
+package main.java.frontend.App;
 
 import main.java.backend.MovableDrawing;
 import main.java.frontend.Renderers.Render;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class CanvasState {
 

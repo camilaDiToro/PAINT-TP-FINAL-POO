@@ -1,8 +1,9 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-class ToolPane {
+package DrawingArea{
 
+class ToolPane {
     - ToggleOptionGroup buttonsGroup
     - CanvasState canvasState
     - FigureStyle currentFigureStyle
@@ -32,6 +33,7 @@ class PaintPane {
     - void updateInfoBarOnMove(Point eventPoint)
     - void updateInfoBarOnClick()
     - void redrawCanvas()
+}
 }
 
 package javafx.scene.layout {

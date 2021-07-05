@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+package Renderers{
+
 interface RendererCreator<F extends MovableDrawing> {
     Render<F> create(Point pt1, Point pt2)
 }
@@ -55,5 +57,5 @@ class FigureStyle {
     + Color getStrokeColor()
     + double getStrokeWidth()
 }
-
+}
 @enduml

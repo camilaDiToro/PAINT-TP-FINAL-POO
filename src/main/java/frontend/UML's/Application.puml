@@ -1,21 +1,38 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+package javafx.application {
+   class Application
+}
+
+package javafx.scene.control {
+    class MenuBar
+}
+
+package javafx.scene.layout {
+     class VBox
+     class BorderPane
+}
+
+package App{
 class AppLauncher {
    +{static} void main(String[] args)
    +void start(Stage primaryStage)
 }
 
-package javafx.application {
-   .Application <|-- AppLauncher
-}
+Application <|-- AppLauncher
+MenuBar <|-- AppMenuBar
+VBox <|-- MainFrame
+BorderPane <|-- StatusPane
 
 class AppMenuBar {
     +AppMenuBar()
 }
 
-package javafx.scene.control {
-    .MenuBar <|-- AppMenuBar
+
+class StatusPane{
+  -Label statusLabel
+  +void updateStatus(String text)
 }
 
 class CanvasState {
@@ -33,8 +50,6 @@ class MainFrame {
 
     +MainFrame(CanvasState canvasState)
 }
-package javafx.scene.layout {
-    .VBox <|-- MainFrame
-}
 
+}
 @enduml

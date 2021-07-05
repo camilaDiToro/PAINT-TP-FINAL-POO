@@ -1,4 +1,4 @@
-package main.java.frontend.Application;
+package main.java.frontend.App;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+package backend{
+
 interface Movable{
     +void move(double diffX, double diffY)
 }
@@ -78,5 +80,5 @@ class Circle extends RoundedFigure{
     +Circle(Point startPoint, Point endPoint)
     +String toString()
 }
-
+}
 @enduml
