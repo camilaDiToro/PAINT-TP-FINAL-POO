@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class PersistentButtonToggleGroup {
+    + PersistentButtonToggleGroup()
+}
+
+class ButtonsGroup extends PersistentButtonToggleGroup {
+   - Map<ToggleButton, ButtonsOption> buttonsMap
+
+   + void addButtonToGroup(ButtonsOption buttonsOption, String buttonText)
+   + void setSelectedOption(ButtonsOption buttonsOption)
+   + ButtonsOption getSelectedOption()
+}
+
+package javafx.scene.control{
+    .ToggleGroup <|-- PersistentButtonToggleGroup
+}
+
+
+@enduml

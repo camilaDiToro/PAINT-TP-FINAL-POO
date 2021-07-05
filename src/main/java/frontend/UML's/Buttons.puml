@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+interface ButtonsOption {
+
+    +void mousePressed(Point eventPoint)
+    +void mouseReleased(Point eventPoint)
+    +void mouseClicked(Point eventPoint)
+    +void mouseMoved(Point eventPoint)
+    +void mouseDragged(Point startPoint, Point eventPoint)
+    +void mouseClickAndDrag(Point pressedPoint, Point releasePoint)
+
+}
+
+class FigureButtons<F extends MovableDrawing> implements ButtonsOption{
+        - RendererCreator<F> rendererCreator
+        - List<Render<? extends MovableDrawing>> renderList
+        - Point startPoint
+
+        + FigureButtons(List<Render<? extends MovableDrawing>> renderList, RendererCreator<F> rendererCreator )
+        + Render<F> createRenderer(Point startPoint, Point endPoint)
+        + void mousePressed(Point eventPoint)
+        + void mouseReleased(Point eventPoint)
+        + void mouseClicked(Point eventPoint)
+        + void mouseMoved(Point eventPoint)
+        + void mouseDragged(Point startPoint, Point eventPoint)
+        + void mouseClickAndDrag(Point pressedPoint, Point releasePoint)
+}
+
+class SelectButton implements ButtonsOption {
+        - List<Render<? extends MovableDrawing>> selectedList;
+        - List<Render<? extends MovableDrawing>> renderList;
+        - Rectangle imaginaryRect;
+        - Point lastPosition;
+
+        + SelectButton(List<Render<? extends MovableDrawing>> selectedList, List<Render<? extends MovableDrawing>> renderList)
+        + void mousePressed(Point eventPoint)
+        + void mouseClicked(Point eventPoint)
+        + void mouseDragged(Point startPoint, Point eventPoint)
+        + void mouseClickAndDrag(Point pressedPoint, Point releasePoint)
+        + void mouseReleased(Point eventPoint)
+        + void mouseMoved(Point eventPoint)
+}
+@enduml

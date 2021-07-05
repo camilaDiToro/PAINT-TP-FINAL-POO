@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+interface RendererCreator<F extends MovableDrawing> {
+    Render<F> create(Point pt1, Point pt2)
+}
+
+abstract class Render<F extends MovableDrawing> {
+    -FigureStyle currentFigureStyle
+    -F movableDrawing
+
+   +Render(F movableDrawing, FigureStyle fg)
+   +abstract void render(GraphicsContext graphicsContext)
+   +F getFigure()
+   +void setStrokeColor(Color color)
+   +void setBgColor(Color color)
+   +void setStrokeWidth(double strokeWidth)
+   +FigureStyle getStyle()
+}
+
+class RectangleRender<F extends Rectangle> extends Render {
+
+    +RectangleRender(F rectangle, FigureStyle fg)
+    +void render( GraphicsContext  gc )
+}
+
+class LineRender extends Render{
+    +LineRender(Line line, FigureStyle fg)
+    +void render(GraphicsContext gc)
+}
+
+class RoundedFigureRender<F extends RoundedFigure> extends Render {
+    + RoundedFigureRender(F roundedFigure, FigureStyle fg)
+    + void render(GraphicsContext gc)
+}
+
+@enduml

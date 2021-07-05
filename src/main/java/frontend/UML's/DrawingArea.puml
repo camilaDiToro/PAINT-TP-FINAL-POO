@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class ToolPane {
+
+    - ButtonsGroup buttonsGroup
+    - CanvasState canvasState
+    - FigureStyle currentFigureStyle
+    - List<Render<? extends MovableDrawing>> selectedList
+
+    + ToolPanel(double spacing, CanvasState canvasState, List<Render<? extends MovableDrawing>> selectedList)
+    + void createButtons()
+    - void createSlider()
+    - void createBorderColorPicker()
+    - void createFillColorPicker()
+    + ButtonsGroup getButtonsGroup()
+    - void setButtonStyle(ButtonBase button)
+    - void deleteAction(ActionEvent actionEvent)
+    - void moveToFront(ActionEvent actionEvent)
+    - void moveToBack(ActionEvent actionEvent)
+}
+
+class PaintPane {
+    -CanvasState canvasState;
+    - StatusPane statusPane;
+    - GraphicsContext gc;
+    - ButtonsGroup buttonsGroup;
+    - List<Render<? extends MovableDrawing>> selectedList
+    - Point startPoint;
+    + PaintPane(CanvasState canvasState, StatusPane statusPane)
+    - Canvas makeCanvas()
+    - void updateInfoBarOnMove(Point eventPoint)
+    - void updateInfoBarOnClick()
+    - void redrawCanvas()
+}
+
+package javafx.scene.layout {
+    .BorderPane <|-- PaintPane
+    .VBox <|-- ToolPane
+}
+@enduml

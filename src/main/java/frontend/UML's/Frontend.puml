@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class AppLauncher {
+   +{static} void main(String[] args)
+   +void start(Stage primaryStage)
+}
+
+package javafx.application {
+   .Application <|-- AppLauncher
+}
+
+class AppMenuBar {
+    +AppMenuBar()
+}
+
+package javafx.scene.control {
+    .MenuBar <|-- AppMenuBar
+}
+
+class CanvasState {
+
+    - List<Render<? extends MovableDrawing>> renders
+
+    + void addRenderFigures(Collection<Render<? extends MovableDrawing>> toAdd)
+    + void deleteRenderFigures(Collection<Render<? extends MovableDrawing>> toRemove)
+    + void moveToFront( List<Render<? extends MovableDrawing>> selectedList)
+    + void moveToBack( List<Render<? extends MovableDrawing>> selectedList)
+    + List<Render< ? extends MovableDrawing>> renderFigures()
+}
+
+class FigureStyle {
+
+    +{static} Color lineColorSelected = Color.RED;
+    +{static} Color lineColorDefault = Color.BLACK;
+    +{static} final Color fillColorDefault = Color.YELLOW;
+    +{static} final double strokeWidthDefault = 2;
+    - Color bgColor;
+    - Color strokeColor;
+    - double strokeWidth;
+
+
+    + FigureStyle(Color bgColor, Color strokeColor, double strokeWidth)
+    + void setBgColor(Color bgColor)
+    + void setStrokeColor(Color strokeColor)
+    + void setStrokeWidth(double strokeWidth)
+    + Color getBgColor()
+    + Color getStrokeColor()
+    + double getStrokeWidth()
+}
+
+class MainFrame {
+
+    +MainFrame(CanvasState canvasState)
+}
+package javafx.scene.layout {
+    .VBox <|-- MainFrame
+}
+
+@enduml

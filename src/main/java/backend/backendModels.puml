@@ -1,8 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-
-
 interface Movable{
     +void move(double diffX, double diffY)
 }
@@ -15,18 +13,15 @@ interface MovableDrawing extends Movable{
     +boolean isContained(Rectangle rectangle)
 }
 
-
-
 abstract class Drawing implements MovableDrawing{
-    -firstPoint
-    -secondPoint
+    -Point firstPoint
+    -Point secondPoint
     +Drawing(Point firstPoint, Point secondPoint)
     +Point getFirstPoint()
     +Point getSecondPoint()
     +List<Point> getPoints()
     +boolean isContained(Rectangle rectangle)
 }
-
 
 abstract class Figure extends Drawing{
     +Figure(Point startPoint, Point endPoint)
@@ -79,13 +74,9 @@ class Point implements Movable{
     +String toString()
 }
 
-
 class Circle extends RoundedFigure{
     +Circle(Point startPoint, Point endPoint)
     +String toString()
 }
-
-
-
 
 @enduml
