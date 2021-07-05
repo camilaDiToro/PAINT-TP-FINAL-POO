@@ -6,6 +6,10 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
+/*
+    Esta clase nos permite que siempre haya un boton del grupo de toggles seleccionado.
+ */
+
 public class PersistentButtonToggleGroup extends ToggleGroup {
     PersistentButtonToggleGroup() {
         super();

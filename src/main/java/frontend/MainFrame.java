@@ -3,6 +3,10 @@ package main.java.frontend;
 import javafx.scene.layout.VBox;
 import main.java.frontend.DrawingArea.PaintPane;
 
+/*
+    Clase de layout de todos los elementos
+ */
+
 public class MainFrame extends VBox {
 
     public MainFrame(CanvasState canvasState) {

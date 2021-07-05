@@ -66,6 +66,9 @@ public class ToolPanel extends VBox{
         SelectButton selectionOption = new SelectButton(selectedList, canvasState.renderFigures());
         buttonsGroup.addButtonToGroup(selectionOption, "Seleccionar");
 
+        /*
+            Cada contructor de boton recibe que figura debe construir, con su respectivo estilo
+         */
 
         FigureButtons<Square> squareOption = new FigureButtons<>(canvasState.renderFigures(),
                 (TopLeft, BottomRight) -> new RectangleRender<>(new Square(TopLeft, BottomRight), currentFigureStyle));
@@ -89,9 +92,9 @@ public class ToolPanel extends VBox{
 
         buttonsGroup.setSelectedOption(selectionOption);
 
-        for(ToggleButton button: buttonsGroup.getToggles()){
-            getChildren().add(button);
-            setButtonStyle(button);
+        for(Toggle button: buttonsGroup.getToggles()){
+            getChildren().add((ToggleButton)button);
+            setButtonStyle((ToggleButton)button);
         }
 
         Button[] toAdd = new Button[]{new Button("Borrar"),new Button("Al frente"),new Button("Al fondo")};
@@ -120,6 +123,7 @@ public class ToolPanel extends VBox{
             for(Render<? extends MovableDrawing> render: selectedList){
                 render.setStrokeWidth(strokeWidth);
             }
+            // Cuando se lanza este evento, lanzamos un aviso de ActionEvent para que lo detecte el PainPane
             ActionEvent.fireEvent(this,new ActionEvent());
             currentFigureStyle.setStrokeWidth(strokeWidth);
         });

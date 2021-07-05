@@ -14,35 +14,32 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ButtonsGroup {
+public class ButtonsGroup extends PersistentButtonToggleGroup {
 
-    // Por qué no herencia en vez de composicion??
-    private final ToggleGroup group = new PersistentButtonToggleGroup();
-
+    /* Asociamos a cada botó con su respectiva opcion ante las acciones ocurridas en el canvas. */
     private final Map<ToggleButton, ButtonsOption> buttonsMap = new HashMap<>();
 
     public void addButtonToGroup(ButtonsOption buttonsOption, String buttonText) {
         ToggleButton button = new ToggleButton(buttonText);
-        button.setToggleGroup(group);
+        button.setToggleGroup(this);
         buttonsMap.put(button, buttonsOption);
     }
 
+    /**
+     * Este metodo permite setear una opción seleccionada por default
+     */
     public void setSelectedOption(ButtonsOption buttonsOption) {
         for (Map.Entry<ToggleButton, ButtonsOption> entry : buttonsMap.entrySet()) {
             if (entry.getValue().equals(buttonsOption)) {
-                group.selectToggle(entry.getKey());
+                selectToggle(entry.getKey());
                 return;
             }
         }
     }
 
     public ButtonsOption getSelectedOption() {
-        return buttonsMap.get(group.getSelectedToggle());
+        return buttonsMap.get(getSelectedToggle());
     }
 
-
-    public Collection<ToggleButton> getToggles(){
-        return buttonsMap.keySet();
-    }
 
 }
