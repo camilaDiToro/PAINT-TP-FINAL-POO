@@ -61,10 +61,12 @@ public class SelectButton extends ToggleOptionButton{
 
     @Override
     public void mouseClickAndDrag(Point pressedPoint, Point releasePoint) {
-        imaginaryRect = new Rectangle(pressedPoint, releasePoint);
-        for (Render<? extends MovableDrawing> render : renderList) {
-            if (render.getFigure().isContained(imaginaryRect)) {
-                selectedList.add(render);
+        if(selectedList.isEmpty()) {
+            imaginaryRect = new Rectangle(pressedPoint, releasePoint);
+            for (Render<? extends MovableDrawing> render : renderList) {
+                if (render.getFigure().isContained(imaginaryRect)) {
+                    selectedList.add(render);
+                }
             }
         }
     }

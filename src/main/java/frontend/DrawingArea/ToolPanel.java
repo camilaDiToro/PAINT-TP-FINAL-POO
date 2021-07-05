@@ -40,11 +40,11 @@ public class ToolPanel extends VBox{
         setStyle("-fx-background-color: #D3D3D3");
         setPrefWidth(120);
 
-        //---------------------Botones----------------------------------
+        //--------------------------------Botones-------------------------------------------
         //Creamos los botones del Tool panel y los agregamos al ToolPanel
         createButtons();
 
-        //----------------------Bordes-----------------------------------
+        //--------------------------------Bordes--------------------------------------------
         Label border = new Label("Borde");
         getChildren().add(border);
 
@@ -53,7 +53,7 @@ public class ToolPanel extends VBox{
         //Creamos el ColorPicker para definir el color de la linea y lo agregamos al ToolPanel
         createBorderColorPicker();
 
-        //---------------------Relleno-------------------------------------
+        //--------------------------------Relleno-------------------------------------------
         Label fill = new Label("Relleno");
         getChildren().add(fill);
 
@@ -150,9 +150,6 @@ public class ToolPanel extends VBox{
         getChildren().add(colorPickerBg);
     }
 
-//    public ButtonsGroup getButtonsGroup(){
-//        return buttonsGroup;
-//    }
 
     public ToggleOptionGroup getButtonsGroup(){
         return buttonsGroup;
@@ -167,6 +164,7 @@ public class ToolPanel extends VBox{
     
     private void deleteAction(ActionEvent actionEvent){
         canvasState.deleteRenderFigures(selectedList);
+        selectedList.clear();
     }
 
     private void moveToFront(ActionEvent actionEvent){
