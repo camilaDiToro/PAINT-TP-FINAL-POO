@@ -2,8 +2,6 @@ package main.java.frontend.Renderers;
 
 import javafx.scene.canvas.GraphicsContext;
 import main.java.backend.Line;
-import javafx.scene.paint.Color;
-import main.java.frontend.FigureStyle;
 
 public class LineRender extends Render<Line> {
 

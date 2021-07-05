@@ -1,6 +1,8 @@
 package main.java.frontend.Buttons;
 
 import java.util.List;
+
+import javafx.scene.control.ToggleButton;
 import main.java.backend.MovableDrawing;
 import main.java.backend.Point;
 import main.java.backend.Rectangle;
@@ -10,14 +12,15 @@ import main.java.frontend.Renderers.Render;
  *  Boton "Seleccionar"
  */
 
-public class SelectButton implements ButtonsOption {
+public class SelectButton extends ToggleOptionButton{
 
     private final List<Render<? extends MovableDrawing>> selectedList;
     private final List<Render<? extends MovableDrawing>> renderList;
     private Rectangle imaginaryRect;
     private Point lastPosition;
 
-    public SelectButton(List<Render<? extends MovableDrawing>> selectedList, List<Render<? extends MovableDrawing>> renderList) {
+    public SelectButton(String buttonName, List<Render<? extends MovableDrawing>> selectedList, List<Render<? extends MovableDrawing>> renderList) {
+        super(buttonName);
         this.renderList = renderList;
         this.selectedList = selectedList;
     }
@@ -66,11 +69,4 @@ public class SelectButton implements ButtonsOption {
         }
     }
 
-    @Override
-    public void mouseReleased(Point eventPoint) {
-    }
-
-    @Override
-    public void mouseMoved(Point eventPoint) {
-    }
 }

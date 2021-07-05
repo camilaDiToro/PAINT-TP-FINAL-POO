@@ -3,7 +3,6 @@ package main.java.frontend.Renderers;
 import javafx.scene.canvas.GraphicsContext;
 import main.java.backend.MovableDrawing;
 import javafx.scene.paint.Color;
-import main.java.frontend.FigureStyle;
 
 public abstract class Render<F extends MovableDrawing> {
 

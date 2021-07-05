@@ -1,7 +1,11 @@
 package main.java.backend;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * Esta clase vincula los dos tipos de dibujos que podemos hacer en la aplicación, figuras
+ * y líneas. La clase se guarda el primer punto donde se hizo click para comenzar a dibujar
+ * y el último punto donde se soltó el mouse. Estos dos puntos permiten identificar a la figura
+ * y representarla en la interfaz gráfica.
+ */
 
 public abstract class Drawing implements MovableDrawing{
 

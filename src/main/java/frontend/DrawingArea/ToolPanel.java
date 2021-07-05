@@ -1,6 +1,5 @@
 package main.java.frontend.DrawingArea;
 
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -8,11 +7,12 @@ import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import main.java.backend.*;
 import main.java.backend.Rectangle;
+import main.java.frontend.Application.CanvasState;
 import main.java.frontend.Buttons.FigureButtons;
+import main.java.frontend.Buttons.OptionButtonGroup;
 import main.java.frontend.Buttons.SelectButton;
-import main.java.frontend.ButtonsGroup.ButtonsGroup;
-import main.java.frontend.CanvasState;
-import main.java.frontend.FigureStyle;
+import main.java.frontend.Buttons.ToggleOptionButton;
+import main.java.frontend.Renderers.FigureStyle;
 import main.java.frontend.Renderers.LineRender;
 import main.java.frontend.Renderers.RectangleRender;
 import main.java.frontend.Renderers.Render;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ToolPanel extends VBox{
 
-    private final ButtonsGroup buttonsGroup = new ButtonsGroup();
+    private final OptionButtonGroup buttonsGroup = new OptionButtonGroup();
     private final CanvasState canvasState;
     private final FigureStyle currentFigureStyle = new FigureStyle(FigureStyle.fillColorDefault, FigureStyle.lineColorDefault, FigureStyle.strokeWidthDefault);
     private final List<Render<? extends MovableDrawing>> selectedList;
@@ -63,50 +63,44 @@ public class ToolPanel extends VBox{
     }
 
     private void createButtons(){
-        SelectButton selectionOption = new SelectButton(selectedList, canvasState.renderFigures());
-        buttonsGroup.addButtonToGroup(selectionOption, "Seleccionar");
+        SelectButton selectionOption = new SelectButton("Seleccionar", selectedList, canvasState.renderFigures());
 
-        /*
-            Cada contructor de boton recibe que figura debe construir, con su respectivo estilo
-         */
-
-        FigureButtons<Square> squareOption = new FigureButtons<>(canvasState.renderFigures(),
+        FigureButtons<Square> squareOption = new FigureButtons<>("Cuadrado", canvasState.renderFigures(),
                 (TopLeft, BottomRight) -> new RectangleRender<>(new Square(TopLeft, BottomRight), currentFigureStyle));
-        buttonsGroup.addButtonToGroup(squareOption, "Cuadrado");
 
-        FigureButtons<Rectangle> rectangleOption = new FigureButtons<>(canvasState.renderFigures(),
+        FigureButtons<Rectangle> rectangleOption = new FigureButtons<>("Rectangulo", canvasState.renderFigures(),
                 (TopLeft, BottomRight) -> new RectangleRender<>(new Rectangle(TopLeft, BottomRight),currentFigureStyle));
-        buttonsGroup.addButtonToGroup(rectangleOption, "Rectangulo");
 
-        FigureButtons<Circle> circleOption = new FigureButtons<>(canvasState.renderFigures(),
+        FigureButtons<Circle> circleOption = new FigureButtons<>("Círculo", canvasState.renderFigures(),
                 (TopLeft, BottomRight) -> new RoundedFigureRender<>(new Circle(TopLeft, BottomRight),currentFigureStyle));
-        buttonsGroup.addButtonToGroup(circleOption, "Círculo");
 
-        FigureButtons<Ellipse> ellipseOption = new FigureButtons<>( canvasState.renderFigures(),
+        FigureButtons<Ellipse> ellipseOption = new FigureButtons<>("Elipse", canvasState.renderFigures(),
                 (TopLeft, BottomRight) -> new RoundedFigureRender<>(new Ellipse(TopLeft, BottomRight),currentFigureStyle));
-        buttonsGroup.addButtonToGroup(ellipseOption, "Elipse");
 
-        FigureButtons<Line> lineOption = new FigureButtons<>(canvasState.renderFigures(),
+        FigureButtons<Line> lineOption = new FigureButtons<>("Linea", canvasState.renderFigures(),
                 (TopLeft, BottomRight) -> new LineRender(new Line(TopLeft, BottomRight), currentFigureStyle));
-        buttonsGroup.addButtonToGroup(lineOption, "Linea");
 
-        buttonsGroup.setSelectedOption(selectionOption);
+        ToggleOptionButton[] buttonArr = {selectionOption,squareOption,rectangleOption,circleOption,ellipseOption, lineOption};
 
-        for(Toggle button: buttonsGroup.getToggles()){
-            getChildren().add((ToggleButton)button);
-            setButtonStyle((ToggleButton)button);
+        for(ToggleOptionButton b : buttonArr){
+            b.setToggleGroup(buttonsGroup);
+            getChildren().add(b);
+            setButtonStyle(b);
         }
 
-        Button[] toAdd = new Button[]{new Button("Borrar"),new Button("Al frente"),new Button("Al fondo")};
+        //Este metodo permite setear una opción seleccionada por default.
+        buttonsGroup.selectToggle(selectionOption);
 
-        for(Button button: toAdd){
+        Button[] buttonArr2 = new Button[]{new Button("Borrar"),new Button("Al frente"),new Button("Al fondo")};
+
+        for(Button button: buttonArr2){
             setButtonStyle(button);
             getChildren().add(button);
         }
 
-        toAdd[0].setOnAction(this::deleteAction);
-        toAdd[1].setOnAction(this::moveToFront);
-        toAdd[2].setOnAction(this::moveToBack);
+        buttonArr2[0].setOnAction(this::deleteAction);
+        buttonArr2[1].setOnAction(this::moveToFront);
+        buttonArr2[2].setOnAction(this::moveToBack);
 
     }
 
@@ -156,7 +150,11 @@ public class ToolPanel extends VBox{
         getChildren().add(colorPickerBg);
     }
 
-    public ButtonsGroup getButtonsGroup(){
+//    public ButtonsGroup getButtonsGroup(){
+//        return buttonsGroup;
+//    }
+
+    public OptionButtonGroup getButtonsGroup(){
         return buttonsGroup;
     }
 

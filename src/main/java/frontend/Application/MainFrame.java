@@ -1,4 +1,4 @@
-package main.java.frontend;
+package main.java.frontend.Application;
 
 import javafx.scene.layout.VBox;
 import main.java.frontend.DrawingArea.PaintPane;

@@ -6,7 +6,7 @@ interface Movable{
 }
 
 interface MovableDrawing extends Movable{
-    +List<Point> getPoints()
+    +Point[] getPoints()
     +default void move(double diffX, double diffY)
     +boolean isDrawable()
     +boolean pointBelongs(Point point)

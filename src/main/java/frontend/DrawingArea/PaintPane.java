@@ -2,21 +2,17 @@ package main.java.frontend.DrawingArea;
 
 import main.java.backend.*;
 import main.java.backend.Point;
-import main.java.frontend.CanvasState;
-import main.java.frontend.FigureStyle;
+import main.java.frontend.Application.CanvasState;
+import main.java.frontend.Application.StatusPane;
+import main.java.frontend.Buttons.OptionButtonGroup;
+import main.java.frontend.Renderers.FigureStyle;
 import main.java.frontend.Renderers.*;
-import main.java.frontend.ButtonsGroup.ButtonsGroup;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
-import main.java.frontend.StatusPane;
 import javafx.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-/*
-	Clase de layout y nexo entre el ToolPanel y Canvas
- */
 
 public class PaintPane extends BorderPane {
 
@@ -30,7 +26,7 @@ public class PaintPane extends BorderPane {
 	private final GraphicsContext gc;
 
 	// Grupo de botones
-	private final ButtonsGroup buttonsGroup;
+	private final OptionButtonGroup buttonsGroup;
 
 	// Lista de selecciones
 	private final List<Render<? extends MovableDrawing>> selectedList = new ArrayList<>();
@@ -42,7 +38,7 @@ public class PaintPane extends BorderPane {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
 
-		// Creamos el toolPanel de todos lso botones
+		// Creamos el toolPanel de todos los botones
 		ToolPanel toolPanel = new ToolPanel(10, canvasState, selectedList);
 
 		// Escuchamos todos los eventos lanzados por el toolPanel
@@ -55,7 +51,6 @@ public class PaintPane extends BorderPane {
 
 		setLeft(toolPanel);
 		setRight(canvas);
-
 	}
 
 	private Canvas makeCanvas() {
@@ -100,9 +95,11 @@ public class PaintPane extends BorderPane {
 		});
 		return canvas;
 	}
-	/*
-		Actualizamos la barra inferior al mover el mouse por fuera o por dentro de una figura.
+
+	/**
+	 *   Actualizamos la barra inferior al mover el mouse por fuera o por dentro de una figura.
 	 */
+
 	private void updateInfoBarOnMove(Point eventPoint) {
 		for (Render<? extends MovableDrawing> renderFigure : canvasState.renderFigures()) {
 			if (renderFigure.getFigure().pointBelongs(eventPoint)) {
@@ -113,8 +110,8 @@ public class PaintPane extends BorderPane {
 		statusPane.updateStatus(eventPoint.toString());
 	}
 
-	/*
-		Actualizamos la barra inferior al seleccionar una, varias figuras o ninguna.
+	/**
+	 *   Actualizamos la barra inferior al seleccionar una, varias figuras o ninguna.
 	 */
 
 	private void updateInfoBarOnClick() {

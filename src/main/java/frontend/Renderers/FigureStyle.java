@@ -1,4 +1,4 @@
-package main.java.frontend;
+package main.java.frontend.Renderers;
 
 import javafx.scene.paint.Color;
 

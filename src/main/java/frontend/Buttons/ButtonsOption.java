@@ -10,15 +10,28 @@ import main.java.backend.Point;
 
 public interface ButtonsOption {
 
-    void mousePressed(Point eventPoint);
+    default void mousePressed(Point eventPoint){
 
-    void mouseReleased(Point eventPoint);
+    }
 
-    void mouseClicked(Point eventPoint);
+    default void mouseReleased(Point eventPoint){
 
-    void mouseMoved(Point eventPoint);
+    }
 
-    void mouseDragged(Point startPoint, Point eventPoint);
+    default void mouseClicked(Point eventPoint){
 
-    void mouseClickAndDrag(Point pressedPoint, Point releasePoint);
+    }
+
+    default void mouseMoved(Point eventPoint){
+
+    }
+
+    default void mouseDragged(Point startPoint, Point eventPoint){
+
+    }
+
+    default void mouseClickAndDrag(Point pressedPoint, Point releasePoint){
+
+    }
+
 }

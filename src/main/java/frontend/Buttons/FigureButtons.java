@@ -1,5 +1,6 @@
 package main.java.frontend.Buttons;
 
+import javafx.scene.control.ToggleButton;
 import main.java.backend.MovableDrawing;
 import main.java.backend.Point;
 import main.java.frontend.Renderers.Render;
@@ -11,14 +12,15 @@ import java.util.List;
  *
  */
 
-public class FigureButtons<F extends MovableDrawing> implements ButtonsOption {
+public class FigureButtons<F extends MovableDrawing> extends ToggleOptionButton {
 
     private final RendererCreator<F> rendererCreator;
     private final List<Render<? extends MovableDrawing>> renderList;
     private Point startPoint;
 
 
-    public FigureButtons(List<Render<? extends MovableDrawing>> renderList, RendererCreator<F> rendererCreator ) {
+    public FigureButtons(String buttonName, List<Render<? extends MovableDrawing>> renderList, RendererCreator<F> rendererCreator ) {
+        super(buttonName);
         this.renderList = renderList;
         this.rendererCreator = rendererCreator;
     }
@@ -38,21 +40,5 @@ public class FigureButtons<F extends MovableDrawing> implements ButtonsOption {
         if (newRenderer.getFigure().isDrawable())
           renderList.add(newRenderer);
         startPoint = null;
-    }
-
-    @Override
-    public void mouseClicked(Point eventPoint) {
-    }
-
-    @Override
-    public void mouseMoved(Point eventPoint) {
-    }
-
-    @Override
-    public void mouseDragged(Point startPoint, Point eventPoint) {
-    }
-
-    @Override
-    public void mouseClickAndDrag(Point pressedPoint, Point releasePoint) {
     }
 }

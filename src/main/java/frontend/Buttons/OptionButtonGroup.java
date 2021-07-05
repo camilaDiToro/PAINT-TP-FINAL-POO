@@ -1,4 +1,4 @@
-package main.java.frontend.ButtonsGroup;
+package main.java.frontend.Buttons;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Toggle;
@@ -6,12 +6,15 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
-/*
-    Esta clase nos permite que siempre haya un boton del grupo de toggles seleccionado.
+/**
+ *  Modela un grupo de ToggleButtons. En el constructor se garantiza
+ *  que siempre haya una opcion seleccionada.
+ *
  */
 
-public class PersistentButtonToggleGroup extends ToggleGroup {
-    PersistentButtonToggleGroup() {
+public class OptionButtonGroup extends ToggleGroup {
+
+    public OptionButtonGroup() {
         super();
         getToggles().addListener((ListChangeListener<Toggle>) c -> {
             while (c.next()) {
@@ -25,4 +28,9 @@ public class PersistentButtonToggleGroup extends ToggleGroup {
             }
         });
     }
+
+    public ToggleOptionButton getSelectedOption() {
+        return (ToggleOptionButton) getSelectedToggle();
+    }
+
 }
