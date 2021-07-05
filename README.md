@@ -16,7 +16,7 @@ donde $$$ se debe completar para llegar correctamente a las librerias.
 
 En el escritorio del usuario se abrirá la aplicación Paint 2.0 en la cual, el usuario, podrá interactuar con ella.
 
-## Estas son las funcionalidades que tiene implementada la aplicación Paint 2.0:
+#### Estas son las funcionalidades que tiene implementada la aplicación Paint 2.0:
 
      •Personalizar el borde de las figuras y las líneas.
      •Personalizar el relleno de las figuras.
