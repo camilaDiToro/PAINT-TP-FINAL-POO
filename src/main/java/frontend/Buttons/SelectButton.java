@@ -16,6 +16,8 @@ public class SelectButton extends ToggleOptionButton{
     private final List<Render<? extends MovableDrawing>> selectedList;
     private final List<Render<? extends MovableDrawing>> renderList;
     private Rectangle imaginaryRect;
+
+    //Para generar un movimiento más fluido.
     private Point lastPosition;
 
     public SelectButton(String buttonName, List<Render<? extends MovableDrawing>> selectedList, List<Render<? extends MovableDrawing>> renderList) {
@@ -48,7 +50,7 @@ public class SelectButton extends ToggleOptionButton{
     }
 
     @Override
-    public void mouseDragged(Point startPoint, Point eventPoint) {
+    public void mouseDragged(Point eventPoint) {
         if (!selectedList.isEmpty()) {
             double diffX = (eventPoint.getX() - lastPosition.getX());
             double diffY = (eventPoint.getY() - lastPosition.getY());

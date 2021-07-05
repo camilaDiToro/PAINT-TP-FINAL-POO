@@ -14,7 +14,7 @@ interface ButtonsOption {
     +void mouseReleased(Point eventPoint)
     +void mouseClicked(Point eventPoint)
     +void mouseMoved(Point eventPoint)
-    +void mouseDragged(Point startPoint, Point eventPoint)
+    +void mouseDragged(Point eventPoint)
     +void mouseClickAndDrag(Point pressedPoint, Point releasePoint)
 
 }
@@ -45,7 +45,7 @@ class SelectButton extends ToggleOptionButton {
         List<Render<? extends MovableDrawing>> renderList)
         + void mousePressed(Point eventPoint)
         + void mouseClicked(Point eventPoint)
-        + void mouseDragged(Point startPoint, Point eventPoint)
+        + void mouseDragged(Point eventPoint)
         + void mouseClickAndDrag(Point pressedPoint, Point releasePoint)
 }
 

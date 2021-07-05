@@ -26,7 +26,7 @@ public interface ButtonsOption {
 
     }
 
-    default void mouseDragged(Point startPoint, Point eventPoint){
+    default void mouseDragged(Point eventPoint){
 
     }
 
