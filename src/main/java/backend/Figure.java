@@ -7,6 +7,9 @@ public abstract class Figure  extends Drawing {
        super(startPoint, endPoint);
     }
 
+    /**
+     * Una figura es dibujable si el primer punto esta arriba y a la izquierda del segundo punto.
+     */
     @Override
     public boolean isDrawable(){
        return (getFirstPoint().getX() <= getSecondPoint().getX() && getFirstPoint().getY() <= getSecondPoint().getY());

@@ -6,11 +6,17 @@ public class Line extends Drawing{
         super(firstPoint, secondPoint);
     }
 
+    /**
+     * Una linea siempre es dibujable.
+     */
     @Override
     public boolean isDrawable() {
         return true;
     }
 
+    /**
+     * Un punto nunca pertenece a una linea, es muy delgada.
+     */
     @Override
     public boolean pointBelongs(Point point) {
         return false;

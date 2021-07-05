@@ -25,6 +25,10 @@ public abstract class Drawing implements MovableDrawing{
         return new Point[]{firstPoint,secondPoint};
     }
 
+    /**
+     *  Diremos que un dibujo está incluido en un rectángulo si su
+     *  punto superior izquierdo y su punto inferior derecho están incluidos en él.
+     */
     @Override
     public boolean isContained(Rectangle rectangle){
         return rectangle.pointBelongs(firstPoint) && rectangle.pointBelongs(secondPoint);
