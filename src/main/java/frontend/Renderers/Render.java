@@ -23,6 +23,7 @@ public abstract class Render<F extends MovableDrawing> {
     public void setStrokeColor(Color color){
         currentFigureStyle.setStrokeColor(color);
     }
+
     public void setBgColor(Color color){
         currentFigureStyle.setBgColor(color);
     }
