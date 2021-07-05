@@ -1,14 +1,16 @@
 package main.java.backend.models;
 
+/***
+ * Modela el comportamiento de figuras geometricas
+ */
 public abstract class Figure  extends Drawing {
-
 
     public Figure(Point startPoint, Point endPoint){
        super(startPoint, endPoint);
     }
 
-    /**
-     * Una figura es dibujable si el primer punto esta arriba y a la izquierda del segundo punto.
+    /***
+     * Una figura es dibujable si el primer punto esta arriba y a la izquierda del segundo punto
      */
     @Override
     public boolean isDrawable(){

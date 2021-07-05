@@ -29,7 +29,6 @@ public class Point implements Movable{
         return Math.sqrt(Math.pow(distanceX(point),2) + Math.pow(distanceY(point),2));
     }
 
-    // Metodo que agrega un diferencial recibido por parametro en las coordenadas x e y
     public void move(double diffX, double diffY) {
         y+=diffY; x+=diffX;
     }

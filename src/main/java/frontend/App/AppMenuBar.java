@@ -1,7 +1,6 @@
 package main.java.frontend.App;
 
 import javafx.scene.control.*;
-
 import java.util.Optional;
 
 public class AppMenuBar extends MenuBar {

@@ -2,8 +2,8 @@ package main.java.frontend.Renderers;
 
 import javafx.scene.paint.Color;
 
-/*
-    Esta clase determina los valores de estilo de los renders.
+/***
+ *   Esta clase determina los valores de estilo de los renders.
  */
 
 public class FigureStyle {

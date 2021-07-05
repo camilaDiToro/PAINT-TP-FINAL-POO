@@ -2,7 +2,6 @@ package main.java.backend;
 
 import main.java.backend.models.MovableDrawing;
 import main.java.frontend.Renderers.Render;
-
 import java.util.*;
 
 public class CanvasState {
