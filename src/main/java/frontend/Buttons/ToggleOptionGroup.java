@@ -12,9 +12,9 @@ import javafx.scene.input.MouseEvent;
  *
  */
 
-public class OptionButtonGroup extends ToggleGroup {
+public class ToggleOptionGroup extends ToggleGroup {
 
-    public OptionButtonGroup() {
+    public ToggleOptionGroup() {
         super();
         getToggles().addListener((ListChangeListener<Toggle>) c -> {
             while (c.next()) {

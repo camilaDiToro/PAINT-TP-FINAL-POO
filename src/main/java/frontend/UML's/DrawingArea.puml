@@ -3,7 +3,7 @@
 
 class ToolPane {
 
-    - ButtonsGroup buttonsGroup
+    - ToggleOptionGroup buttonsGroup
     - CanvasState canvasState
     - FigureStyle currentFigureStyle
     - List<Render<? extends MovableDrawing>> selectedList

@@ -4,7 +4,7 @@ import main.java.backend.*;
 import main.java.backend.Point;
 import main.java.frontend.Application.CanvasState;
 import main.java.frontend.Application.StatusPane;
-import main.java.frontend.Buttons.OptionButtonGroup;
+import main.java.frontend.Buttons.ToggleOptionGroup;
 import main.java.frontend.Renderers.FigureStyle;
 import main.java.frontend.Renderers.*;
 import javafx.scene.canvas.Canvas;
@@ -26,7 +26,7 @@ public class PaintPane extends BorderPane {
 	private final GraphicsContext gc;
 
 	// Grupo de botones
-	private final OptionButtonGroup buttonsGroup;
+	private final ToggleOptionGroup buttonsGroup;
 
 	// Lista de selecciones
 	private final List<Render<? extends MovableDrawing>> selectedList = new ArrayList<>();

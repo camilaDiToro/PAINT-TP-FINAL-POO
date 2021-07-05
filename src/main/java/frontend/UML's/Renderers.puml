@@ -24,6 +24,8 @@ class RectangleRender<F extends Rectangle> extends Render {
     +void render( GraphicsContext  gc )
 }
 
+Render *-- FigureStyle
+
 class LineRender extends Render{
     +LineRender(Line line, FigureStyle fg)
     +void render(GraphicsContext gc)

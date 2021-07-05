@@ -9,7 +9,7 @@ import main.java.backend.*;
 import main.java.backend.Rectangle;
 import main.java.frontend.Application.CanvasState;
 import main.java.frontend.Buttons.FigureButtons;
-import main.java.frontend.Buttons.OptionButtonGroup;
+import main.java.frontend.Buttons.ToggleOptionGroup;
 import main.java.frontend.Buttons.SelectButton;
 import main.java.frontend.Buttons.ToggleOptionButton;
 import main.java.frontend.Renderers.FigureStyle;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ToolPanel extends VBox{
 
-    private final OptionButtonGroup buttonsGroup = new OptionButtonGroup();
+    private final ToggleOptionGroup buttonsGroup = new ToggleOptionGroup();
     private final CanvasState canvasState;
     private final FigureStyle currentFigureStyle = new FigureStyle(FigureStyle.fillColorDefault, FigureStyle.lineColorDefault, FigureStyle.strokeWidthDefault);
     private final List<Render<? extends MovableDrawing>> selectedList;
@@ -154,7 +154,7 @@ public class ToolPanel extends VBox{
 //        return buttonsGroup;
 //    }
 
-    public OptionButtonGroup getButtonsGroup(){
+    public ToggleOptionGroup getButtonsGroup(){
         return buttonsGroup;
     }
 
