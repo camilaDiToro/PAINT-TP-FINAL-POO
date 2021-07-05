@@ -19,6 +19,11 @@ public class PaintPane extends BorderPane {
 	// BackEnd
 	private final CanvasState canvasState;
 
+	// Tamaño minimo de seleccion multiple
+	// El canvas siempre que reconoce un click reconoce un release y viceversa, por eso necesitamos
+	// identificar un minimo de movimiento para evaluar si se trata de un click o de una seleccion multiple
+	private static final int MIN_SELECTED_AREA = 1;
+
 	// StatusBar
 	private final StatusPane statusPane;
 
@@ -79,7 +84,7 @@ public class PaintPane extends BorderPane {
 		canvas.setOnMouseClicked(event -> {
 			Point eventPoint = new Point(event.getX(), event.getY());
 
-			if (eventPoint.distance(startPoint) > 1) // Ver de cambiarlo si es posible.
+			if (eventPoint.distance(startPoint) > MIN_SELECTED_AREA)
 				buttonsGroup.getSelectedOption().mouseClickAndDrag(startPoint, eventPoint);
 			else
 				buttonsGroup.getSelectedOption().mouseClicked(eventPoint);

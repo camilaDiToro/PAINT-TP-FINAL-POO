@@ -22,10 +22,11 @@ class ToolPane {
 }
 
 class PaintPane {
-    -CanvasState canvasState;
-    - StatusPane statusPane;
-    - GraphicsContext gc;
-    - ButtonsGroup buttonsGroup;
+    - {static} final int MIN_SELECTED_AREA = 1
+    - CanvasState canvasState
+    - StatusPane statusPane
+    - GraphicsContext gc
+    - ButtonsGroup buttonsGroup
     - List<Render<? extends MovableDrawing>> selectedList
     - Point startPoint;
     + PaintPane(CanvasState canvasState, StatusPane statusPane)
