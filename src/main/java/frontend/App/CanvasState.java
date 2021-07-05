@@ -15,12 +15,12 @@ public class CanvasState {
         renders.removeAll(toRemove);
     }
 
-    public void moveToFront( List<Render<? extends MovableDrawing>> selectedList){
+    public void moveToFront(List<Render<? extends MovableDrawing>> selectedList){
         deleteRenderFigures(selectedList);
         addRenderFigures(selectedList);
     }
 
-    public void moveToBack( List<Render<? extends MovableDrawing>> selectedList){
+    public void moveToBack(List<Render<? extends MovableDrawing>> selectedList){
         deleteRenderFigures(selectedList);
         renders.addAll(0, selectedList);
     }
