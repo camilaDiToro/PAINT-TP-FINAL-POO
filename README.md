@@ -2,7 +2,7 @@
 
 En el siguiente trabajo práctico pusimos en práctica nuestros conocimientos para llevar a cabo el desarrollo de una aplicación de escritorio similar al famoso Paint.
 
-Junto con este archivo se encuentra un informe detallado sobre el funcionamiento de la aplicación, los problemas que han surgido en el transcurso del trabajo práctico y los cambios que le hemos hecho al código provisto por la cátedra, la carpeta src que contiene todos los códigos fuente para que la aplicación funcione y la carpeta oculta .git.
+Junto con este archivo se encuentra un informe detallado sobre el funcionamiento de la aplicación, los problemas que han surgido en el transcurso del trabajo práctico y los cambios que le hemos hecho al código provisto por la cátedra, la carpeta src que contiene todos los códigos fuente para que la aplicación funcione junto con los UML y la carpeta oculta .git.
      
 # Ejecución
 
