@@ -5,9 +5,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
-import main.java.backend.*;
-import main.java.backend.Rectangle;
-import main.java.frontend.App.CanvasState;
+import main.java.backend.models.*;
+import main.java.backend.CanvasState;
 import main.java.frontend.Buttons.FigureButtons;
 import main.java.frontend.Buttons.ToggleOptionGroup;
 import main.java.frontend.Buttons.SelectButton;
@@ -44,6 +43,7 @@ public class ToolPanel extends VBox{
         //Creamos los botones del Tool panel y los agregamos al ToolPanel
         createButtons();
 
+
         //--------------------------------Bordes--------------------------------------------
         Label border = new Label("Borde");
         getChildren().add(border);
@@ -52,6 +52,7 @@ public class ToolPanel extends VBox{
         createSlider();
         //Creamos el ColorPicker para definir el color de la linea y lo agregamos al ToolPanel
         createBorderColorPicker();
+
 
         //--------------------------------Relleno-------------------------------------------
         Label fill = new Label("Relleno");

@@ -1,7 +1,7 @@
 package main.java.frontend.Renderers;
 
 import javafx.scene.canvas.GraphicsContext;
-import main.java.backend.Line;
+import main.java.backend.models.Line;
 
 public class LineRender extends Render<Line> {
 

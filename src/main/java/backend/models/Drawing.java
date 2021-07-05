@@ -1,4 +1,4 @@
-package main.java.backend;
+package main.java.backend.models;
 
 /**
  * Esta clase vincula los dos tipos de dibujos que podemos hacer en la aplicación, figuras

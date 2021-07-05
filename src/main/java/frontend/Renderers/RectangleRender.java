@@ -1,7 +1,7 @@
 package main.java.frontend.Renderers;
 
 import javafx.scene.canvas.GraphicsContext;
-import main.java.backend.Rectangle;
+import main.java.backend.models.Rectangle;
 
 public class RectangleRender<F extends Rectangle> extends Render<F>{
 

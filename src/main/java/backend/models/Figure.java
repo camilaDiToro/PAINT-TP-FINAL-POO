@@ -1,4 +1,4 @@
-package main.java.backend;
+package main.java.backend.models;
 
 public abstract class Figure  extends Drawing {
 

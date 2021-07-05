@@ -1,7 +1,7 @@
 package main.java.frontend.Renderers;
 
-import main.java.backend.MovableDrawing;
-import main.java.backend.Point;
+import main.java.backend.models.MovableDrawing;
+import main.java.backend.models.Point;
 
 @FunctionalInterface
 public interface RendererCreator<F extends MovableDrawing> {

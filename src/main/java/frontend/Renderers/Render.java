@@ -1,7 +1,7 @@
 package main.java.frontend.Renderers;
 
 import javafx.scene.canvas.GraphicsContext;
-import main.java.backend.MovableDrawing;
+import main.java.backend.models.MovableDrawing;
 import javafx.scene.paint.Color;
 
 public abstract class Render<F extends MovableDrawing> {

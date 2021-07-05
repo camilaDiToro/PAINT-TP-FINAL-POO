@@ -1,6 +1,4 @@
-package main.java.backend;
-
-import java.util.List;
+package main.java.backend.models;
 
 /**
  * Marca el comportamiento que debe tener un dibujo para poder moverse. Definimos los dibujos a través de

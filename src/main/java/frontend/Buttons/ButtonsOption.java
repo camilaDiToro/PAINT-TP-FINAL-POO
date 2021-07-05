@@ -1,6 +1,6 @@
 package main.java.frontend.Buttons;
 
-import main.java.backend.Point;
+import main.java.backend.models.Point;
 
 /***
  *  Interfaz que permite darle un comportamiento a un boton. Llamaremos a estos

@@ -1,0 +1,20 @@
+@startuml
+
+package backend{
+class CanvasState {
+
+    - List<Render<? extends MovableDrawing>> renders
+
+    + void addRenderFigures(Collection<Render<? extends MovableDrawing>> toAdd)
+    + void deleteRenderFigures(Collection<Render<? extends MovableDrawing>> toRemove)
+    + void moveToFront( List<Render<? extends MovableDrawing>> selectedList)
+    + void moveToBack( List<Render<? extends MovableDrawing>> selectedList)
+    + List<Render< ? extends MovableDrawing>> renderFigures()
+}
+
+package models{
+
+}
+
+}
+@enduml

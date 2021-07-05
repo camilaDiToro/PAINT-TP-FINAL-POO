@@ -1,7 +1,7 @@
 package main.java.frontend.Renderers;
 
 import javafx.scene.canvas.GraphicsContext;
-import main.java.backend.RoundedFigure;
+import main.java.backend.models.RoundedFigure;
 
 public class RoundedFigureRender<F extends RoundedFigure> extends Render<F> {
 

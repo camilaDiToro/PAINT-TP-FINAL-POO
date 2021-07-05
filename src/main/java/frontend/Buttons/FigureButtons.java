@@ -1,8 +1,7 @@
 package main.java.frontend.Buttons;
 
-import javafx.scene.control.ToggleButton;
-import main.java.backend.MovableDrawing;
-import main.java.backend.Point;
+import main.java.backend.models.MovableDrawing;
+import main.java.backend.models.Point;
 import main.java.frontend.Renderers.Render;
 import main.java.frontend.Renderers.RendererCreator;
 import java.util.List;

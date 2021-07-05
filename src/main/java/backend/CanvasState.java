@@ -1,6 +1,6 @@
-package main.java.frontend.App;
+package main.java.backend;
 
-import main.java.backend.MovableDrawing;
+import main.java.backend.models.MovableDrawing;
 import main.java.frontend.Renderers.Render;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package main.java.backend;
+package main.java.backend.models;
 
 public class Point implements Movable{
 
