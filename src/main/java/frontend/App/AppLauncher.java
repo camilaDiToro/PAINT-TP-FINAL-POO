@@ -3,7 +3,6 @@ package main.java.frontend.App;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.java.backend.CanvasState;
 
 public class AppLauncher extends Application {
 

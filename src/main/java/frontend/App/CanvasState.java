@@ -1,4 +1,4 @@
-package main.java.backend;
+package main.java.frontend.App;
 
 import main.java.backend.models.MovableDrawing;
 import main.java.frontend.Renderers.Render;

@@ -1,7 +1,6 @@
 package main.java.frontend.App;
 
 import javafx.scene.layout.VBox;
-import main.java.backend.CanvasState;
 import main.java.frontend.DrawingArea.PaintPane;
 
 public class MainFrame extends VBox {

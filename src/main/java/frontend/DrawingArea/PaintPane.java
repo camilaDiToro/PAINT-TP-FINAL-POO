@@ -2,7 +2,7 @@ package main.java.frontend.DrawingArea;
 
 import main.java.backend.models.MovableDrawing;
 import main.java.backend.models.Point;
-import main.java.backend.CanvasState;
+import main.java.frontend.App.CanvasState;
 import main.java.frontend.App.StatusPane;
 import main.java.frontend.Buttons.ToggleOptionGroup;
 import main.java.frontend.Renderers.FigureStyle;

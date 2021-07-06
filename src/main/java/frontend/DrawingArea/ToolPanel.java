@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import main.java.backend.models.*;
-import main.java.backend.CanvasState;
+import main.java.frontend.App.CanvasState;
 import main.java.frontend.Buttons.FigureButtons;
 import main.java.frontend.Buttons.ToggleOptionGroup;
 import main.java.frontend.Buttons.SelectButton;

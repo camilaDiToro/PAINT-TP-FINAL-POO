@@ -7,7 +7,7 @@ import main.java.frontend.Renderers.RendererCreator;
 import java.util.List;
 
 /***
- *  Boton que permtite crear las figuras las figuras
+ *  Boton que permtite crear las figuras
  */
 
 public class FigureButtons<F extends MovableDrawing> extends ToggleOptionButton {
