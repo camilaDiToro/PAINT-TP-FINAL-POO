@@ -69,8 +69,8 @@ public class PaintPane extends BorderPane {
 
 		canvas.setOnMouseReleased(event -> {
 			Point eventPoint = new Point(event.getX(), event.getY());
-//			if (startPoint == null)
-//				return;
+			if (startPoint == null)
+				return;
 			buttonsGroup.getSelectedOption().mouseReleased(eventPoint);
 			redrawCanvas();
 		});

@@ -20,6 +20,6 @@ public abstract class RoundedFigure extends Figure{
 
     @Override
     public boolean pointBelongs(Point point) {
-        return Math.pow(point.getX()-centerPoint.getX(),2)/(Math.pow(getHeight()/2,2)) + Math.pow(point.getY()-centerPoint.getY(),2)/(Math.pow(getWidth()/2,2)) <=1; //Ecuación de la elipse con centro fuera del origen
+        return Math.pow(point.getX()-centerPoint.getX(),2)/(Math.pow(getWidth()/2,2)) + Math.pow(point.getY()-centerPoint.getY(),2)/(Math.pow(getHeight()/2,2)) <=1; //Ecuación de la elipse con centro fuera del origen
     }
 }

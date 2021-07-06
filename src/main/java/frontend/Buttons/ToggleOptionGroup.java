@@ -18,9 +18,9 @@ public class ToggleOptionGroup extends ToggleGroup {
         super();
 
         //se garantiza que siempre haya una opcion seleccionada.
-        getToggles().addListener((ListChangeListener<Toggle>) c -> {
-            while (c.next()) {
-                for (final Toggle addedToggle : c.getAddedSubList()) {
+        getToggles().addListener((ListChangeListener<Toggle>) button -> {
+            while (button.next()) {
+                for (final Toggle addedToggle : button.getAddedSubList()) {
                     ((ToggleButton) addedToggle).addEventFilter(MouseEvent.MOUSE_RELEASED,
                             mouseEvent -> {
                                 if (addedToggle.equals(getSelectedToggle()))
